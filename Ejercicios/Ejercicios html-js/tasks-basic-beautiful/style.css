@@ -1,0 +1,127 @@
+/* Fondo con degradado bonito */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor con efecto glass */
+.container {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    width: 350px;
+    color: white;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Input + botón */
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#todo-input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.add-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    font-size: 30px;
+    color: white;
+    background: #ff6f91;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+    background: #ff5773;
+    transform: scale(1.1);
+}
+
+/* Filtros */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.filters button {
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255,255,255,0.3);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.filters button:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+/* Lista de tareas */
+#todo-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task {
+    background: rgba(255,255,255,0.25);
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: taskIn 0.25s ease-out;
+    cursor: pointer;
+}
+
+@keyframes taskIn {
+    from { transform: translateY(10px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+
+.done {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.checkmark {
+    font-size: 20px;
+    transition: 0.2s;
+}
+
+.task.done .checkmark {
+    color: #a0ffb6;
+}

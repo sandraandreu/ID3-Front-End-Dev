@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito de la compra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Tienda</h1>
+
+    <div class="header">
+        <span>Carrito: <span id="cart-count">0</span> items</span>
+    </div>
+
+    <div class="products">
+        <div class="product">
+            <h3>Producto A</h3>
+            <button onclick="addToCart('Producto A')">Añadir al carrito</button>
+        </div>
+
+        <div class="product">
+            <h3>Producto B</h3>
+            <button onclick="addToCart('Producto B')">Añadir al carrito</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

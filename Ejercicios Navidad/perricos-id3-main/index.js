@@ -22,12 +22,15 @@ function renderPerricoFilter() {
     dogFilterName.innerHTML += htmlAdd;
   })
 
-  const filerButtonActive = document.querySelectorAll('button.filterButton')
-  .addEventListener ('click', function(){
-    /*AQUÍ NECESITO AYUDAAA*/
-  })
-}
+  const filterButtonActive = document.querySelectorAll('.filterButton')
 
+  filterButtonActive.forEach(function(button){
+      button.addEventListener ('click', function(){
+        button.classList.toggle('filterButton__active')
+    })
+  })
+
+}
 
 renderPerricoFilter()
 

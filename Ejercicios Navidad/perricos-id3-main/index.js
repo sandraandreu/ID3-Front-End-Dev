@@ -40,7 +40,6 @@ function renderPerricoArray() {
 
   perricosArray.forEach((dogImage, index) => {
     
-
     const htmlAdd = `<div class="card">
       <img src="${dogImage}" alt="Perro" />
       <br />
@@ -59,6 +58,8 @@ const addPerrico = async () => {
   const perricoImg = await getRandomDogImage();
   perricosArray.push(perricoImg);
   renderPerricoArray();
+
+  
 };
 
 renderPerricoArray();

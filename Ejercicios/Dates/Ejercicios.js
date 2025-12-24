@@ -74,9 +74,7 @@ function isDate1BetweenDate2AndDate3 (date1,date2,date3) {
     const now = new Date(date1).getTime();
     const now2 = new Date(date2).getTime();
     const now3 = new Date(date3).getTime();
-    const result = (date1>date2) && (date1<date3) || (date1<date2) && (date1>date3);
-
-    return result
+    return (now>now2) && (now<now3) || (now<now2) && (now>now3);
 }
 
 console.log(isDate1BetweenDate2AndDate3('2025-02-01','2025-01-01','2025-02-05'))

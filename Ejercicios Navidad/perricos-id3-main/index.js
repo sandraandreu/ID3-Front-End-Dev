@@ -95,13 +95,13 @@ function perricoFilter () {
     })
   })
 
-  if (/*Nose muy bien como hacer para poner aquí si no hay ningún filtro activado*/) {
+  if (/*Nose muy bien como hacer para poner aquí si no hay ningún filtro activado*/ '') {
     return perricosArray
   }
 
   else { 
     const filterActive = perricosArray.filter(function(perrico){
-      return perrico.name === /*Necesito acceder a los nombres de los botones activos*/
+      return perrico.name === ''/*Necesito acceder a los nombres de los botones activos*/
     })
   }
 }

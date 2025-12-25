@@ -52,7 +52,7 @@ function renderPerricoArray() {
   perricosArray.forEach((dog, index) => {
     
     const htmlAdd = `<div class="card">
-      <img src="${dog}" alt="Perro" />
+      <img src="${dog.perricoImg}" alt="Perro" />
       <br />
       <h2>${dog.name}</h2>
       <p>❤️ 🤮</p>
@@ -80,6 +80,13 @@ function renderPerricoFilter() {
     dogFilterName.innerHTML += htmlAdd;
   })
 
+}
+
+renderPerricoFilter()
+
+
+function perricoFilter () {
+
   const filterButtonActive = document.querySelectorAll('.filterButton')
 
   filterButtonActive.forEach(function(button){
@@ -88,9 +95,19 @@ function renderPerricoFilter() {
     })
   })
 
+  if (/*Nose muy bien como hacer para poner aquí si no hay ningún filtro activado*/) {
+    return perricosArray
+  }
+
+  else { 
+    const filterActive = perricosArray.filter(function(perrico){
+      return perrico.name === /*Necesito acceder a los nombres de los botones activos*/
+    })
+  }
 }
 
-renderPerricoFilter()
+perricoFilter()
+
 
 
 

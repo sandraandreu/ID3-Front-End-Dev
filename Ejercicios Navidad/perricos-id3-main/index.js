@@ -3,7 +3,7 @@ const perricosArray = [];
 
 // Definición de nombres de perros
 
-const dogName = ["Sucky","Drako","Pitter","Frida","Rocky","Neu","Body","Chena","Ghost", "Fiona", "Balto", "Canela", "Chispa", "Rocco", "Sombra"]
+const dogName = ["Sucky","Drako","Atenea","Harby","Lacy","Nico","Timy","Pitter","Frida","Rocky","Neu","Body","Chena","Ghost", "Fiona", "Balto", "Canela", "Chispa", "Rocco", "Sombra"]
 
 function randomPerritoName () {
     const randomIndex = Math.floor(Math.random() * dogName.length);
@@ -53,10 +53,9 @@ function renderPerricoArray() {
     
     const htmlAdd = `<div class="card">
       <img src="${dog.perricoImg}" alt="Perro" />
-      <br />
-      <h2>${dog.name}</h2>
-      <p>❤️ 🤮</p>
-      <button>Preciosísimo</button> <button>Feísisimo</button>
+      <h3>${dog.name}</h3>
+      <div> <img src="../perricos-id3-main/img/cookie.svg" alt=""> </div>
+      <button>Darle una galleta</button>
     </div>`;
 
     console.log('innerHtml posición', index, dogList.innerHTML);

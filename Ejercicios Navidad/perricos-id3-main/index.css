@@ -1,29 +1,71 @@
 body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   align-items: center;
   text-align: center;
+  background-color: #fefae0;
+  color: #646f42;
+  margin: 24px 56px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+h1,h2,h3{
+  margin: 0;
 }
 
 h1 {
-  margin-bottom: 20px;
+  color: #646f42;
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 20px;
 }
 
 button {
-  margin: 5px;
-  padding: 10px 15px;
-  border: 1px solid #000000;
-  background-color: #f0f0f0;
-  display: inline-block;
+  padding: 12px 20px;
+  border: 1px solid #646f42;
+  border-radius: 12px;
+  background-color: #646f42;
+  color: #e9edc9;
+  font-size: 16px;
 }
 
-div {
-  text-align: center;
+.filterButton {
+  padding: 8px 12px;
+  border: 1px solid #646f42;
+  box-shadow: 0 2px 3px #646f42;
+  background-color: #e9edc9;
+  color: #646f42;
 }
+
+.buttons__add {
+  display: flex;
+  gap: 16px;
+}
+
+.buttons__filters, .dogCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
 
 .card {
-  display: inline-block;
-  vertical-align: top;
-  border: 1px solid #030303;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #646f42;
+  box-shadow: 0 2px 3px #646f42;
+  border-radius: 12px;
+  padding: 12px;
   max-width: 450px;
   text-align: center;
   margin: 10px;

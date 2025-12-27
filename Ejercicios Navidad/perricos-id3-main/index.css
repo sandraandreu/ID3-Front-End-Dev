@@ -37,6 +37,10 @@ button {
   font-size: 16px;
 }
 
+button:hover {
+  background-color: rgba(100, 111, 66, 0.9);
+}
+
 .filterButton {
   padding: 8px 12px;
   border: 1px solid #646f42;
@@ -45,9 +49,22 @@ button {
   color: #646f42;
 }
 
+.filterButton:hover {
+  background-color: rgba(100, 111, 66, 0.3);
+}
+
 .buttons__add {
   display: flex;
   gap: 16px;
+}
+
+.filterButton__active {
+  background-color: #646f42;
+  color: #e9edc9;
+}
+
+.filterButton__active:hover {
+  background-color: rgba(100, 111, 66, 0.9);
 }
 
 .buttons__filters, .dogCards {
@@ -76,7 +93,3 @@ img {
   max-height: 150px;
 }
 
-.filterButton__active {
-  background-color: #646f42;
-  color: #e9edc9;
-}

@@ -20,7 +20,9 @@ function randomPerritoName () {
     const name = randomPerritoName();
     const perrico = {
       name,
-      perricoImg
+      perricoImg,
+      likes: 0,
+      isliked: false
     }
 
     perricosArray.push(perrico);
@@ -96,8 +98,11 @@ function renderPerricoArray() {
       const htmlAdd = `<div class="card">
         <img src="${dog.perricoImg}" alt="Perro" />
         <h3>${dog.name}</h3>
-        <div> <img src="../perricos-id3-main/img/cookie.svg" alt=""> </div>
-        <button>Darle una galleta</button>
+        <div> 
+          <img src="../perricos-id3-main/img/cookie.svg" alt=""> 
+          <span>${dog.likes}</span>
+        </div>
+        <button data=${index} class="buttonCookie">Darle una galleta</button>
       </div>`;
 
       console.log('innerHtml posición', index, dogList.innerHTML);
@@ -116,8 +121,11 @@ function renderPerricoArray() {
       const htmlAdd = `<div class="card">
         <img src="${dog.perricoImg}" alt="Perro" />
         <h3>${dog.name}</h3>
-        <div> <img src="../perricos-id3-main/img/cookie.svg" alt=""> </div>
-        <button>Darle una galleta</button>
+        <div> 
+          <img src="../perricos-id3-main/img/cookie.svg" alt=""> 
+          <span>${dog.likes}</span>
+        </div>
+        <button class="buttonCookie">Darle una galleta</button>
       </div>`;
 
       console.log('innerHtml posición', index, dogList.innerHTML);
@@ -128,16 +136,52 @@ function renderPerricoArray() {
 
 }
 
+//Darle un like al perrico
+
+//que sepa los botones que hay de las galletas
+//que sepa cuando se pulsan
+//que sepa que boton ha pulsado, a que perro pertenece
+//acceder a la informacion de los perros
+//buscar un perro que coincida con el index del boton pulsado
+//si ese perro no le has dado like sumarle uno y cambiar el texto o el estilo del boton
+// si le has dado like quitarselo, volver al estilo principal
+
+const likeButton = document.querySelectorAll('.buttonCookie')
+likeButton.addEventListener('click', function() {
+//seguir por aqui
+}) 
+
+//es de antes
+function liketoggle () {
+  renderPerricoArray()
+
+  
+  likeButton.forEach (function(button){ 
+    button.addEventListener('click', function() {
+    
+    perricosArray.forEach(function(perrico){
+      if (perrico.isliked === false) {
+      perrico.likes += 1
+      perrico.isliked = true
+    }
+
+    else {
+      perrico.likes -= 1
+      perrico.isliked = false
+    }
+    })
+    });
+  })
+}
+
+liketoggle()
 
 
 
-//crear boton de filtros
-//al pulsar ese boton se le añade una clase de boton activo
-//guardar el contenido del boton activo en una variable que vaya cambiando
-//borrarlo de la variable si se desactiva
-//si la variable esta vacia () mostrar todos los perros
-//si no comparar el contenido de la variable de botones activos con los nombres de los perros 
-  //mostrar solo los perros que coincidan con ese nombre
+// que funcione el boton de darle una galleta
+// que solo salgan los botones de los perros que si que estan
+// que te diga cuantos perros con ese nombre hay
+// que solo puedas pulsar un filtro o que puedas tener todos los filtros que quieras activos
 
 
 

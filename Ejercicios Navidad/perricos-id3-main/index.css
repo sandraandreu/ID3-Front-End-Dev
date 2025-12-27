@@ -77,6 +77,6 @@ img {
 }
 
 .filterButton__active {
-  background-color: black;
-  color: white;
+  background-color: #646f42;
+  color: #e9edc9;
 }

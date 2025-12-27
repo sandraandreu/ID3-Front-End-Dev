@@ -1,4 +1,5 @@
 const perricosArray = [];
+let filteractive = null
 
 
 // Definición de nombres de perros
@@ -43,27 +44,6 @@ function randomPerritoName () {
     add5Perrico();
   });
 
-// Card del perrito en la interfaz
-
-function renderPerricoArray() {
-  const dogList = document.querySelector('#dog-list');
-  dogList.innerHTML = '';
-
-  perricosArray.forEach((dog, index) => {
-    
-    const htmlAdd = `<div class="card">
-      <img src="${dog.perricoImg}" alt="Perro" />
-      <h3>${dog.name}</h3>
-      <div> <img src="../perricos-id3-main/img/cookie.svg" alt=""> </div>
-      <button>Darle una galleta</button>
-    </div>`;
-
-    console.log('innerHtml posición', index, dogList.innerHTML);
-
-    dogList.innerHTML += htmlAdd;
-  });
-}
-
 // Filtros por nombres
 
 function renderPerricoFilter() {
@@ -77,35 +57,87 @@ function renderPerricoFilter() {
     console.log('innerHtml posición', index, dogFilterName.innerHTML);
 
     dogFilterName.innerHTML += htmlAdd;
+
+  })
+
+  const filterButton = document.querySelectorAll('.filterButton')
+
+  filterButton.forEach (function(button){ 
+    button.addEventListener('click', function() {
+    
+    if (filteractive === null ) {
+      button.classList.add("filterButton__active")
+      const textButton = button.textContent.trim()
+      filteractive = textButton 
+    }
+
+    else {
+      button.classList.remove("filterButton__active")
+      filteractive = null
+    }
+
+    renderPerricoArray()
+    });
   })
 
 }
 
 renderPerricoFilter()
 
+// Card del perrito en la interfaz
 
-function perricoFilter () {
+function renderPerricoArray() {
+  const dogList = document.querySelector('#dog-list');
+  dogList.innerHTML = '';
 
-  const filterButtonActive = document.querySelectorAll('.filterButton')
+  if (filteractive === null) {
+    perricosArray.forEach((dog, index) => {
+      
+      const htmlAdd = `<div class="card">
+        <img src="${dog.perricoImg}" alt="Perro" />
+        <h3>${dog.name}</h3>
+        <div> <img src="../perricos-id3-main/img/cookie.svg" alt=""> </div>
+        <button>Darle una galleta</button>
+      </div>`;
 
-  filterButtonActive.forEach(function(button){
-      button.addEventListener ('click', function(){
-        button.classList.toggle('filterButton__active')
-    })
-  })
+      console.log('innerHtml posición', index, dogList.innerHTML);
 
-  if (/*Nose muy bien como hacer para poner aquí si no hay ningún filtro activado*/ '') {
-    return perricosArray
+      dogList.innerHTML += htmlAdd;
+    });
   }
 
-  else { 
-    const filterActive = perricosArray.filter(function(perrico){
-      return perrico.name === ''/*Necesito acceder a los nombres de los botones activos*/
+  else {
+    const perricosFiltered = perricosArray.filter(function(perrico){
+      return perrico.name === filteractive
     })
+
+    perricosFiltered.forEach((dog, index) => {
+      
+      const htmlAdd = `<div class="card">
+        <img src="${dog.perricoImg}" alt="Perro" />
+        <h3>${dog.name}</h3>
+        <div> <img src="../perricos-id3-main/img/cookie.svg" alt=""> </div>
+        <button>Darle una galleta</button>
+      </div>`;
+
+      console.log('innerHtml posición', index, dogList.innerHTML);
+
+      dogList.innerHTML += htmlAdd;
+    });
   }
+
 }
 
-perricoFilter()
+
+
+
+//crear boton de filtros
+//al pulsar ese boton se le añade una clase de boton activo
+//guardar el contenido del boton activo en una variable que vaya cambiando
+//borrarlo de la variable si se desactiva
+//si la variable esta vacia () mostrar todos los perros
+//si no comparar el contenido de la variable de botones activos con los nombres de los perros 
+  //mostrar solo los perros que coincidan con ese nombre
 
 
 

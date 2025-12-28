@@ -31,6 +31,7 @@ function randomPerritoName () {
     }
 
     perricosArray.push(perrico);
+    renderPerricoFilter()
     renderPerricoArray();
   };
 
@@ -54,12 +55,25 @@ function randomPerritoName () {
 // Filtros por nombres
 
 function renderPerricoFilter() {
+
+  //Crear botones de los filtros
   const dogFilterName = document.querySelector('#dog-filter-name');
   dogFilterName.innerHTML = '';
 
-  dogName.forEach(function(name, index){
+  let namesFilter = [] 
+  let nameDogFilter 
 
-    const htmlAdd = `<button class="filterButton"> ${name} </button>`;
+  perricosArray.forEach(function(perrico){
+    if(!namesFilter.includes(perrico.name))
+    namesFilter.push(perrico.name)
+  })
+
+  namesFilter.forEach(function(name, index){
+    const count = perricosArray.filter(function(perrico) {
+    return perrico.name === name;
+    })
+
+    const htmlAdd = `<button class="filterButton" id="filter-${name}"> ${name} (${count.length}) </button>`;
 
     console.log('innerHtml posición', index, dogFilterName.innerHTML);
 
@@ -67,12 +81,14 @@ function renderPerricoFilter() {
 
   })
 
+  //Funcionalidad de los botones de filtros
+
   const filterButton = document.querySelectorAll('.filterButton')
 
   filterButton.forEach (function(button){ 
     button.addEventListener('click', function(event) {
     let buttonClicked = event.target;
-    const textButtonClicked = buttonClicked.textContent.trim()
+    const textButtonClicked = button.id.replace('filter-','')
 
     if (filteractive === null) {
       buttonClicked.classList.add("filterButton__active")
@@ -99,7 +115,6 @@ function renderPerricoFilter() {
 
 }
 
-renderPerricoFilter()
 
 // Card del perrito en la interfaz
 

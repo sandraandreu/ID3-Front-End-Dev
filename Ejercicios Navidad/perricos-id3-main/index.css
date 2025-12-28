@@ -12,6 +12,11 @@ body {
 header {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.header__titleAndSubtitle {
   gap: 8px;
 }
 
@@ -38,7 +43,7 @@ button {
 }
 
 button:hover {
-  background-color: rgba(100, 111, 66, 0.9);
+  background-color: rgba(100, 111, 66, 0.8);
 }
 
 .filterButton {

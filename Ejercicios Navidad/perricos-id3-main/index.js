@@ -1,6 +1,9 @@
 const perricosArray = [];
 let filteractive = null
 
+const cookieFull = "../perricos-id3-main/img/cookie.svg";
+const cookieEmpty = "../perricos-id3-main/img/cookie_empty.svg"
+
 
 // Definición de nombres de perros
 
@@ -18,11 +21,13 @@ function randomPerritoName () {
   const addPerrico = async () => {
     const perricoImg = await getRandomDogImage();
     const name = randomPerritoName();
+    let cookie = cookieEmpty
     const perrico = {
       name,
       perricoImg,
       likes: 0,
-      isliked: false
+      isliked: false,
+      cookie
     }
 
     perricosArray.push(perrico);
@@ -65,17 +70,27 @@ function renderPerricoFilter() {
   const filterButton = document.querySelectorAll('.filterButton')
 
   filterButton.forEach (function(button){ 
-    button.addEventListener('click', function() {
-    
-    if (filteractive === null ) {
-      button.classList.add("filterButton__active")
-      const textButton = button.textContent.trim()
-      filteractive = textButton 
+    button.addEventListener('click', function(event) {
+    let buttonClicked = event.target;
+    const textButtonClicked = buttonClicked.textContent.trim()
+
+    if (filteractive === null) {
+      buttonClicked.classList.add("filterButton__active")
+      filteractive = textButtonClicked 
+    }
+
+    else if (filteractive === textButtonClicked) {
+      buttonClicked.classList.remove("filterButton__active")
+      filteractive = null
     }
 
     else {
-      button.classList.remove("filterButton__active")
-      filteractive = null
+      filterButton.forEach (function(button){
+        button.classList.remove("filterButton__active")
+      })
+      
+      buttonClicked.classList.add("filterButton__active")
+      filteractive = textButtonClicked 
     }
 
     renderPerricoArray()
@@ -92,51 +107,56 @@ function renderPerricoArray() {
   const dogList = document.querySelector('#dog-list');
   dogList.innerHTML = '';
 
-  if (filteractive === null) {
-    perricosArray.forEach((dog, index) => {
-      
+  perricosArray.forEach(function(dog,index){
+    if (filteractive === null || dog.name === filteractive) {
       const htmlAdd = `<div class="card">
         <img src="${dog.perricoImg}" alt="Perro" />
         <h3>${dog.name}</h3>
         <div> 
-          <img src="../perricos-id3-main/img/cookie.svg" alt=""> 
-          <span>${dog.likes}</span>
+          <img src="${dog.cookie}" alt=""> 
         </div>
-        <button data=${index} class="buttonCookie">Darle una galleta</button>
+        <button data-like=${index} class="buttonCookie">Darle una galleta</button>
       </div>`;
 
       console.log('innerHtml posición', index, dogList.innerHTML);
 
-      dogList.innerHTML += htmlAdd;
-    });
-  }
+      dogList.innerHTML += htmlAdd; 
+    }
+  })
 
-  else {
-    const perricosFiltered = perricosArray.filter(function(perrico){
-      return perrico.name === filteractive
-    })
-
-    perricosFiltered.forEach((dog, index) => {
-      
-      const htmlAdd = `<div class="card">
-        <img src="${dog.perricoImg}" alt="Perro" />
-        <h3>${dog.name}</h3>
-        <div> 
-          <img src="../perricos-id3-main/img/cookie.svg" alt=""> 
-          <span>${dog.likes}</span>
-        </div>
-        <button class="buttonCookie">Darle una galleta</button>
-      </div>`;
-
-      console.log('innerHtml posición', index, dogList.innerHTML);
-
-      dogList.innerHTML += htmlAdd;
-    });
-  }
+  likePerrico()
 
 }
 
 //Darle un like al perrico
+
+  function likePerrico () {
+
+    const likeButton = document.querySelectorAll('.buttonCookie')
+
+    likeButton.forEach(function(button){
+
+      button.addEventListener('click', function() {
+      const idButtonClicked = Number(button.getAttribute('data-like'))
+      const perrico = perricosArray[idButtonClicked]
+
+      function perricoaddlike (perrico) {
+        if(perrico.isliked === false) {
+          perrico.likes += 1
+          perrico.isliked = true
+          perrico.cookie = cookieFull
+        }
+        else {
+          perrico.likes -= 1
+          perrico.isliked = false
+          perrico.cookie = cookieEmpty
+          }
+      }
+      perricoaddlike(perrico)
+      renderPerricoArray()
+      })
+    })
+  }
 
 //que sepa los botones que hay de las galletas
 //que sepa cuando se pulsan
@@ -145,37 +165,6 @@ function renderPerricoArray() {
 //buscar un perro que coincida con el index del boton pulsado
 //si ese perro no le has dado like sumarle uno y cambiar el texto o el estilo del boton
 // si le has dado like quitarselo, volver al estilo principal
-
-const likeButton = document.querySelectorAll('.buttonCookie')
-likeButton.addEventListener('click', function() {
-//seguir por aqui
-}) 
-
-//es de antes
-function liketoggle () {
-  renderPerricoArray()
-
-  
-  likeButton.forEach (function(button){ 
-    button.addEventListener('click', function() {
-    
-    perricosArray.forEach(function(perrico){
-      if (perrico.isliked === false) {
-      perrico.likes += 1
-      perrico.isliked = true
-    }
-
-    else {
-      perrico.likes -= 1
-      perrico.isliked = false
-    }
-    })
-    });
-  })
-}
-
-liketoggle()
-
 
 
 // que funcione el boton de darle una galleta

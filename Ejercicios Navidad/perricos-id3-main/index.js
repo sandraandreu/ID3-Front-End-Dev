@@ -181,16 +181,3 @@ function likePerrico() {
     });
   });
 }
-
-//que sepa los botones que hay de las galletas
-//que sepa cuando se pulsan
-//que sepa que boton ha pulsado, a que perro pertenece
-//acceder a la informacion de los perros
-//buscar un perro que coincida con el index del boton pulsado
-//si ese perro no le has dado like sumarle uno y cambiar el texto o el estilo del boton
-// si le has dado like quitarselo, volver al estilo principal
-
-// que funcione el boton de darle una galleta
-// que solo salgan los botones de los perros que si que estan
-// que te diga cuantos perros con ese nombre hay
-// que solo puedas pulsar un filtro o que puedas tener todos los filtros que quieras activos

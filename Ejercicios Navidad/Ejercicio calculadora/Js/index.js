@@ -65,133 +65,121 @@ buttons.forEach(function (button) {
     console.log(`Has pulsado ${buttonClicked}`);
 
     function clickButtons() {
-        if (buttonClicked == "AC") {
-            clickAC()
-        }
-        else if (buttonClicked=="DEL") {
-            clickDEL()
-        }
-        else if (!isNaN(Number(buttonClicked))) {
-            clickNumbers()
-        }
-        else if (!result.includes(".") && buttonClicked == ".") {
-            clickPoint()
-        }
-        else if (!result.includes("%") && buttonClicked == "%") {
-            clickPercentatge
-        }
-        else if (buttonClicked == "=" || !num2 == 0 && operation) {
-            operate()
-        }
-    }
-
-      
-
-      else if (buttonClicked == "=") {
-        
-      }
-
-      // Clicar operaciones
-      else if (operators.includes(buttonClicked)) {
-        if (num2 == "0") {
-            operation = buttonClicked;
-        }
-        else {
-
-        }
+      if (buttonClicked == "AC") {
+        clickAC();
+      } else if (buttonClicked == "DEL") {
+        clickDEL();
+      } else if (!isNaN(Number(buttonClicked))) {
+        clickNumbers();
+      } else if (!result.includes(".") && buttonClicked == ".") {
+        clickPoint();
+      } else if (!result.includes("%") && buttonClicked == "%") {
+        clickPercentatge();
+      } else if (buttonClicked == "=") {
+        operate();
+      } else if (operators.includes(buttonClicked)) {
+        clickOperators();
       }
     }
 
-    operations();
+    clickButtons();
     renderCalculatorResult();
   });
 });
 
-// voy pulsando numero entonces el resultado es el num1 y el num2 es 0
-// cuando pulso una operacion se guarda en la operacion y el resultado sigue siendo el num1 y num2 es 0
-//si la operacion NO esta vacia los numeros que vaya escribiendo se iran guardando en numero 2
-// cuando pulse el igual el resultado sera num1 (operacion) num2 y num2 pasara a estar en 0 otra vez
+//Funciones de los botones
 
+// Reset
+function clickAC() {
+  num1 = "0";
+  result = num1;
+}
 
-//Funciones de los botones 
+// Borrar
+function clickDEL() {
+  if (result == "0") {
+    result = "0";
+  } else if (result.length > 1) {
+    result = result.slice(0, result.length - 1);
+  } else {
+    result = "0";
+  }
+}
 
-    // Reset
-    function clickAC () {
-    num1 = 0
-    result = num1
-    }
+// Clicar numeros
+function clickNumbers() {
+  if (result == "0") {
+    num1 = buttonClicked;
+    result = num1;
+  } else if (!operation) {
+    num1 += buttonClicked;
+    result = num1;
+  } else if (num2 == "0") {
+    num2 = buttonClicked;
+    result = num2;
+  } else {
+    num2 += buttonClicked;
+    result = num2;
+  }
+}
 
-    // Borrar
-    function clickDEL () {
-    if (result == "0") {
-        result = "0";
-    } else if (result.length > 1) {
-        result = result.slice(0, result.length - 1);
+// Clicar "."
+function clickPoint() {
+  if (num2 == "0") {
+    num1 += ".";
+    result = num1;
+  } else {
+    num2 += ".";
+    result = num2;
+  }
+}
+
+// Clicar "%"
+function clickPercentatge() {
+  if (!operation) {
+    num1 = String(Number(num1 / 100));
+    result = num1;
+  } else {
+    num2 = String((Number(num1) * Number(num2)) / 100);
+    result = num2;
+  }
+}
+
+// Operar
+function finalizeOperation() {
+  result = num1;
+  num2 = "0";
+  operation = "";
+}
+
+function operate() {
+  if (operation == "+") {
+    num1 = String(Number(num1) + Number(num2));
+    finalizeOperation();
+  } else if (operation == "−") {
+    num1 = String(Number(num1) - Number(num2));
+    finalizeOperation();
+  } else if (operation == "÷") {
+    if (num2 === "0") {
+      result = "Error";
+      return;
     } else {
-        result = "0";
+      num1 = String(Number(num1) / Number(num2));
+      finalizeOperation();
     }
-    }
+  } else if (operation == "×") {
+    num1 = String(Number(num1) * Number(num2));
+    finalizeOperation();
+  }
+}
 
-    // Clicar numeros
-    function clickNumbers () {
-    if (result == "0") {
-        num1 = buttonClicked;
-        result = num1;
-    } else if (!operation) {
-        num1 += buttonClicked;
-        result = num1;
-    } else if (num2 == "0") {
-        num2 = buttonClicked;
-        result = num2;
-    } else {
-        num2 += buttonClicked;
-        result = num2;
-    }
-    }
-
-    // Clicar "."
-    function clickPoint () {
-    if (num2 == 0) {
-        num1 += ".";
-        result = num1;
-    } else {
-        num2 += ".";
-        result = num2;
-    }
-    }
-
-    // Clicar "%"
-    function clickPercentatge () {
-            if (num2 == "0") {
-            num1 += "%";
-            result = num1;
-            } else {
-            num2 += "%";
-            result = num2;
-            }
-        }
-
-    // Operar
-      function operate () {
-        if (operation == "+") {
-          num1 = Number(num1) + Number(num2);
-          result = num1;
-          num2 = 0;
-          operation = "";
-        } else if (operation == "−") {
-          num1 = Number(num1) - Number(num2);
-          result = num1;
-          num2 = 0;
-          operation = "";
-        } else if (operation == "÷") {
-          num1 = Number(num1) / Number(num2);
-          result = num1;
-          num2 = 0;
-          operation = "";
-        } else if (operation == "×") {
-          num1 = Number(num1) * Number(num2);
-          result = num1;
-          num2 = 0;
-          operation = "";
-        }
-      }
+// Clicar operaciones
+function clickOperators() {
+  if (num2 == "0") {
+    operation = buttonClicked;
+  } else {
+    operate();
+    operation = buttonClicked;
+    num2 = "0";
+  }
+}

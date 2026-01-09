@@ -1,8 +1,8 @@
 const perricosArray = [];
 let filterActive = null;
 
-const cookieFull = "../perricos-id3-main/img/cookie.svg";
-const cookieEmpty = "../perricos-id3-main/img/cookie_empty.svg";
+const cookieFull = "../img/cookie.svg";
+const cookieEmpty = "../img/cookie_empty.svg";
 
 // Definición de nombres de perros
 

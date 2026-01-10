@@ -41,7 +41,7 @@ function renderCalculatorKeys() {
 
 renderCalculatorKeys();
 
-//Resultado
+//Pantalla de resultado
 function renderCalculatorResult() {
   const resultInterface = document.querySelector("#result");
   resultInterface.innerHTML = "";
@@ -116,10 +116,10 @@ function clickNumbers() {
     result = num1;
   } else if (num2 == "0") {
     num2 = buttonClicked;
-    result = num2;
+    result = num1 + operation + num2;
   } else {
     num2 += buttonClicked;
-    result = num2;
+    result = num1 + operation + num2;
   }
 }
 
@@ -177,9 +177,11 @@ function operate() {
 function clickOperators() {
   if (num2 == "0") {
     operation = buttonClicked;
+    result = num1 + operation;
   } else {
     operate();
     operation = buttonClicked;
     num2 = "0";
+    result = num1 + operation;
   }
 }

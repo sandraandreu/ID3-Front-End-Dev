@@ -76,52 +76,37 @@ document.querySelector("#add-5-perrico").addEventListener("click", function () {
 // Filtros por nombres
 
 function renderPerricoFilter() {
-  //Crear botones de los filtros
-  const dogFilterName = document.querySelector("#dog-filter-name");
-  dogFilterName.innerHTML = "";
+  const dogFilterName = document.querySelector('#dog-filter-name');
+  dogFilterName.innerHTML = '';
 
-  let namesFilter = [];
-  let nameDogFilter;
-
+  const filterCount = {};
   perricosArray.forEach(function (perrico) {
-    if (!namesFilter.includes(perrico.name)) namesFilter.push(perrico.name);
+    filterCount[perrico.name] = filterCount[perrico.name] ? filterCount[perrico.name] + 1 : 1;
   });
 
-  namesFilter.forEach(function (name, index) {
-    const count = perricosArray.filter(function (perrico) {
-      return perrico.name === name;
-    });
+  Object.keys(filterCount).forEach(function (name, index) {
+    const buttonElement = document.createElement('button');
+    buttonElement.className = `filterButton ${name === filterActive ? 'filterButton__active' : ''}`;
+    buttonElement.innerText = `${name} (${filterCount[name]})`;
 
-    const htmlAdd = `<button class="filterButton" id="filter-${name}"> ${name} (${count.length}) </button>`;
+    console.log('innerHtml posición', index, dogFilterName.innerHTML);
+    dogFilterName.appendChild(buttonElement);
 
-    console.log("innerHtml posición", index, dogFilterName.innerHTML);
-
-    dogFilterName.innerHTML += htmlAdd;
-  });
-
-  //Funcionalidad de los botones de filtros
-
-  const filterButton = document.querySelectorAll(".filterButton");
-
-  filterButton.forEach(function (button) {
-    button.addEventListener("click", function (event) {
-      let buttonClicked = event.target;
-      const textButtonClicked = button.id.replace("filter-", "");
-
-      if (filterActive === null) {
-        buttonClicked.classList.add("filterButton__active");
-        filterActive = textButtonClicked;
-      } else if (filterActive === textButtonClicked) {
-        buttonClicked.classList.remove("filterButton__active");
+    buttonElement.addEventListener('click', function () {
+      if (filterActive === name) {
+        buttonElement.classList.remove('filterButton__active');
         filterActive = null;
-      } else {
-        filterButton.forEach(function (button) {
-          button.classList.remove("filterButton__active");
-        });
+        renderPerricoArray();
 
-        buttonClicked.classList.add("filterButton__active");
-        filterActive = textButtonClicked;
+        return;
       }
+
+      document.querySelectorAll('.filterButton__active').forEach(function (button) {
+        button.classList.remove('filterButton__active');
+      });
+
+      buttonElement.classList.add('filterButton__active');
+      filterActive = name;
 
       renderPerricoArray();
     });

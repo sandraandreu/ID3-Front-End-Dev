@@ -1,5 +1,5 @@
 const perricosArray = [];
-let filterActive = null;
+let filterActive = [];
 
 const cookieFull = "../img/cookie.svg";
 const cookieEmpty = "../img/cookie_empty.svg";
@@ -76,37 +76,42 @@ document.querySelector("#add-5-perrico").addEventListener("click", function () {
 // Filtros por nombres
 
 function renderPerricoFilter() {
-  const dogFilterName = document.querySelector('#dog-filter-name');
-  dogFilterName.innerHTML = '';
+  const dogFilterName = document.querySelector("#dog-filter-name");
+  dogFilterName.innerHTML = "";
 
   const filterCount = {};
   perricosArray.forEach(function (perrico) {
-    filterCount[perrico.name] = filterCount[perrico.name] ? filterCount[perrico.name] + 1 : 1;
+    filterCount[perrico.name] = filterCount[perrico.name]
+      ? filterCount[perrico.name] + 1
+      : 1;
   });
 
   Object.keys(filterCount).forEach(function (name, index) {
-    const buttonElement = document.createElement('button');
-    buttonElement.className = `filterButton ${name === filterActive ? 'filterButton__active' : ''}`;
+    const buttonElement = document.createElement("button");
+    buttonElement.className = `filterButton ${
+      filterActive.includes(name) ? "filterButton__active" : ""
+    }`;
     buttonElement.innerText = `${name} (${filterCount[name]})`;
 
-    console.log('innerHtml posición', index, dogFilterName.innerHTML);
+    console.log("innerHtml posición", index, dogFilterName.innerHTML);
     dogFilterName.appendChild(buttonElement);
 
-    buttonElement.addEventListener('click', function () {
-      if (filterActive === name) {
-        buttonElement.classList.remove('filterButton__active');
-        filterActive = null;
+    buttonElement.addEventListener("click", function () {
+      if (filterActive.includes(name)) {
+        buttonElement.classList.remove("filterButton__active");
+        const removeName = filterActive.filter(function (dogName) {
+          return dogName !== name;
+        });
+        filterActive = removeName;
         renderPerricoArray();
+
+        console.log(filterActive);
 
         return;
       }
 
-      document.querySelectorAll('.filterButton__active').forEach(function (button) {
-        button.classList.remove('filterButton__active');
-      });
-
-      buttonElement.classList.add('filterButton__active');
-      filterActive = name;
+      buttonElement.classList.add("filterButton__active");
+      filterActive.push(name);
 
       renderPerricoArray();
     });
@@ -120,7 +125,7 @@ function renderPerricoArray() {
   dogList.innerHTML = "";
 
   perricosArray.forEach(function (dog, index) {
-    if (filterActive === null || dog.name === filterActive) {
+    if (filterActive.length === 0 || filterActive.includes(dog.name)) {
       const htmlAdd = `<div class="card">
         <img src="${dog.perricoImg}" alt="Perro" />
         <h3>${dog.name}</h3>

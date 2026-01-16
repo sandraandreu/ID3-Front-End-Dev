@@ -72,6 +72,10 @@ body {
     inset 0 -2px 5px rgba(0, 48, 73, 0.25);
 }
 
+.key:active {
+transform: translateY(-1px);
+}
+
 .key:last-child {
   width: calc(50% - 8px);
 }

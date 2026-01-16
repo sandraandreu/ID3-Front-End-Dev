@@ -1,5 +1,7 @@
 const perricosArray = [];
-let filterActive = [];
+let filterNameActive = [];
+let filterBreedsActive = "Todos los perritos";
+let breeds;
 
 const cookieFull = "../img/cookie.svg";
 const cookieEmpty = "../img/cookie_empty.svg";
@@ -34,16 +36,70 @@ function randomPerritoName() {
   return dogName[randomIndex];
 }
 
+//Filtrar por raza
+
+async function filterBreeds() {
+  const message = await getListAllBreeds();
+  breeds = Object.keys(message);
+
+  const dogFilterBreed = document.querySelector("#dog-filter-breed");
+  dogFilterBreed.innerHTML = "";
+
+  breeds.unshift("Todos los perritos");
+
+  breeds.forEach(function (name) {
+    const optionElement = document.createElement("option");
+    optionElement.value = `${name}`;
+    optionElement.innerText = `${name}`;
+    optionElement.className = "capitalize";
+
+    dogFilterBreed.appendChild(optionElement);
+  });
+
+  dogFilterBreed.addEventListener("change", function () {
+    filterBreedsActive = this.value;
+    renderPerricoArray();
+  });
+}
+
+filterBreeds();
+
+// Dar una raza aleatoria
+
+function randomPerritoBreed() {
+  breeds.unshift("Todos los perritos");
+  const randomIndex = Math.floor(Math.random() * breeds.length);
+  return breeds[randomIndex];
+}
+
 // Añadir perritos al pulsar los botones
+
+//Recibir la raza del perro a partir de la img
+
+function getBreedFromImageUrl(url) {
+  const parts = url.split("/");
+  const breedWithSub = parts[parts.indexOf("breeds") + 1];
+  const mainBreed = breedWithSub.split("-")[0];
+  return mainBreed;
+}
 
 // Añadir 1 perrito
 
 const addPerrico = async () => {
-  const perricoImg = await getRandomDogImage();
+  let perricoImg;
+  if (filterBreedsActive === "Todos los perritos") {
+    perricoImg = await getRandomDogImage();
+  } else {
+    perricoImg = await getImageBreedActive();
+  }
+
+  const perricoBreed = getBreedFromImageUrl(perricoImg);
+
   const name = randomPerritoName();
   let cookie = cookieEmpty;
   const perrico = {
     name,
+    perricoBreed,
     perricoImg,
     likes: Math.floor(Math.random() * 1001),
     isLiked: false,
@@ -51,27 +107,57 @@ const addPerrico = async () => {
   };
 
   perricosArray.push(perrico);
+
   renderPerricoFilter();
   renderPerricoArray();
 };
 
 renderPerricoArray();
 
-document.querySelector("#add-1-perrico").addEventListener("click", function () {
-  addPerrico();
-});
+document
+  .querySelector("#add-1-perrico")
+  .addEventListener("click", async function () {
+    disabledAllButtons();
+    await addPerrico();
+    enableAllButtons();
+  });
 
 // Añadir 5 perricos
 
-function add5Perrico() {
-  for (let counter = 1; counter <= 5; counter++) {
-    addPerrico();
-  }
+async function add5Perrico() {
+  await Promise.all([
+    addPerrico(),
+    addPerrico(),
+    addPerrico(),
+    addPerrico(),
+    addPerrico(),
+  ]);
+  console.log("end");
 }
 
-document.querySelector("#add-5-perrico").addEventListener("click", function () {
-  add5Perrico();
-});
+document
+  .querySelector("#add-5-perrico")
+  .addEventListener("click", async function () {
+    disabledAllButtons();
+    await add5Perrico();
+    enableAllButtons();
+  });
+
+//Desactivar botones de añadir perrito
+
+function disabledAllButtons() {
+  document.querySelectorAll(".buttons__add button").forEach(function (button) {
+    button.disabled = true;
+  });
+}
+
+//Activar botones de añadir perrito
+
+function enableAllButtons() {
+  document.querySelectorAll(".buttons__add button").forEach(function (button) {
+    button.disabled = false;
+  });
+}
 
 // Filtros por nombres
 
@@ -89,7 +175,7 @@ function renderPerricoFilter() {
   Object.keys(filterCount).forEach(function (name, index) {
     const buttonElement = document.createElement("button");
     buttonElement.className = `filterButton ${
-      filterActive.includes(name) ? "filterButton__active" : ""
+      filterNameActive.includes(name) ? "filterButton__active" : ""
     }`;
     buttonElement.innerText = `${name} (${filterCount[name]})`;
 
@@ -97,21 +183,21 @@ function renderPerricoFilter() {
     dogFilterName.appendChild(buttonElement);
 
     buttonElement.addEventListener("click", function () {
-      if (filterActive.includes(name)) {
+      if (filterNameActive.includes(name)) {
         buttonElement.classList.remove("filterButton__active");
-        const removeName = filterActive.filter(function (dogName) {
+        const removeName = filterNameActive.filter(function (dogName) {
           return dogName !== name;
         });
-        filterActive = removeName;
+        filterNameActive = removeName;
         renderPerricoArray();
 
-        console.log(filterActive);
+        console.log(filterNameActive);
 
         return;
       }
 
       buttonElement.classList.add("filterButton__active");
-      filterActive.push(name);
+      filterNameActive.push(name);
 
       renderPerricoArray();
     });
@@ -125,10 +211,18 @@ function renderPerricoArray() {
   dogList.innerHTML = "";
 
   perricosArray.forEach(function (dog, index) {
-    if (filterActive.length === 0 || filterActive.includes(dog.name)) {
+    const passNameFilter =
+      filterNameActive.length === 0 || filterNameActive.includes(dog.name);
+
+    const passBreedFilter =
+      filterBreedsActive === "Todos los perritos" ||
+      dog.perricoBreed === filterBreedsActive;
+
+    if (passNameFilter && passBreedFilter) {
       const htmlAdd = `<div class="card">
         <img src="${dog.perricoImg}" alt="Perro" />
         <h3>${dog.name}</h3>
+        <span>Raza: <span class="capitalize">${dog.perricoBreed}</span></span>
         <div class="likesContainer"> 
           <span>${dog.likes}</span>
           <img src="${dog.cookie}" alt=""> 

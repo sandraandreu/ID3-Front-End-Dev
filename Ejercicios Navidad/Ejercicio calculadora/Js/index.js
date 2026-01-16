@@ -4,42 +4,7 @@ let result = "0";
 let num1 = "0";
 let num2 = "0";
 let operation;
-const operators = ["+", "−", "÷", "×"];
-const calculatorKeys = [
-  "AC",
-  "DEL",
-  "%",
-  "÷",
-  "7",
-  "8",
-  "9",
-  "×",
-  "4",
-  "5",
-  "6",
-  "−",
-  "1",
-  "2",
-  "3",
-  "+",
-  "0",
-  ".",
-  "=",
-];
-
-// Teclas
-function renderCalculatorKeys() {
-  const keys = document.querySelector("#keys");
-  keys.innerHTML = "";
-
-  calculatorKeys.forEach(function (key, index) {
-    const htmlAddKeys = `<button class="key">${key}</button>`;
-
-    keys.innerHTML += htmlAddKeys;
-  });
-}
-
-renderCalculatorKeys();
+const operators = ["+", "−", "÷", "×", "%"];
 
 //Pantalla de resultado
 function renderCalculatorResult() {
@@ -69,12 +34,10 @@ buttons.forEach(function (button) {
         clickAC();
       } else if (buttonClicked == "DEL") {
         clickDEL();
-      } else if (!isNaN(Number(buttonClicked))) {
+      } else if (Number(buttonClicked)) {
         clickNumbers();
       } else if (!result.includes(".") && buttonClicked == ".") {
         clickPoint();
-      } else if (!result.includes("%") && buttonClicked == "%") {
-        clickPercentatge();
       } else if (buttonClicked == "=") {
         operate();
       } else if (operators.includes(buttonClicked)) {
@@ -134,17 +97,6 @@ function clickPoint() {
   }
 }
 
-// Clicar "%"
-function clickPercentatge() {
-  if (!operation) {
-    num1 = String(Number(num1 / 100));
-    result = num1;
-  } else {
-    num2 = String((Number(num1) * Number(num2)) / 100);
-    result = num2;
-  }
-}
-
 // Operar
 function finalizeOperation() {
   result = num1;
@@ -158,6 +110,9 @@ function operate() {
     finalizeOperation();
   } else if (operation == "−") {
     num1 = String(Number(num1) - Number(num2));
+    finalizeOperation();
+  } else if (operation == "%") {
+    num1 = String(Number(num1) % Number(num2));
     finalizeOperation();
   } else if (operation == "÷") {
     if (num2 === "0") {

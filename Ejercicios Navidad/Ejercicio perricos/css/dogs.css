@@ -1,0 +1,266 @@
+/*Variables de color*/
+
+:root {
+  --white-warm: rgb(245, 244, 240);
+  --beige-light: rgb(226, 224, 218);
+  --beige-medium: rgb(190, 184, 174);
+
+  --gray-dark: rgb(43, 43, 43);
+  --gray-medium: rgb(111, 111, 111);
+
+  --green-soft: rgb(122, 142, 124);
+  --green: rgb(79, 111, 82);
+  --green-06: rgb(79, 111, 82, 0.6);
+
+  --terracotta-soft: rgb(191, 120, 88);
+
+  --green-success: rgb(95, 163, 106);
+  --red-soft: rgb(196, 74, 74);
+}
+
+/*General*/
+
+html {
+  background-color: var(--white-warm);
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  padding: 32px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--gray-dark);
+}
+
+h1,h2,h3,h4,p,span{
+  margin: 0;
+  padding: 0;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/*Buttons*/
+
+.button__add {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 12px 24px;
+
+  font-size: 16px;
+  font-weight: normal;
+  color: var(--white-warm);
+
+  background-color: var(--green);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px var(--green-06);
+}
+
+.button__add:hover {
+  background-color: var(--green-soft);
+}
+
+.button__add:active {
+  transform: translateY(2px);
+}
+
+button:disabled {
+  background-color: var(--gray-medium);
+}
+
+/*Filtros*/
+
+.filter__toggle {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: normal;
+  color: var(--terracotta-soft);
+  background-color: var(--white-warm);
+  border: 1.5px solid var(--terracotta-soft);
+  border-radius: 8px;
+}
+
+.filter__toggle__desactive {
+  background-color: var(--beige-light);
+}
+
+.filter {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 8px 32px 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: normal;
+  color: var(--terracotta-soft);
+  background-color: var(--white-warm);
+  border: 1.5px solid var(--terracotta-soft);
+  border-radius: 8px;
+}
+
+.filter:focus {
+  outline-color: var(--terracotta-soft);
+  color: var(--terracotta-soft);
+}
+
+/*Icons*/
+
+.icon24px {
+  width: 24px;
+  height: 24px;
+}
+
+.icon20px {
+  width: 20px;
+  height: 20px;
+}
+
+/*Message*/
+
+.messageinfo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+  color: var(--terracotta-soft);
+}
+
+/*Header*/
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header__principalinfo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.buttons__add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+}
+
+.search__input {
+  align-self: flex-start;
+  width: 100%;
+  padding: 8px 12px;
+  background-color: var(--beige-light);
+  border: none;
+  border-radius: 8px;
+}
+
+input[type="search"]:focus {
+  outline-color: var(--gray-medium);
+}
+
+input[type="search"]::placeholder {
+  color: var(--gray-medium);
+}
+
+.search__icon {
+  transform: translateX(-32px);
+}
+
+.filter__panel {
+  display: none;
+}
+
+.filter__panel__active {
+  display: flex;
+  gap: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 16px;
+}
+
+.selectwrapper {
+  position: relative;
+}
+
+.selectarrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-60%);
+  pointer-events: none;
+}
+
+.filterButton__active {
+  background-color: #646f42;
+  color: #e9edc9;
+}
+
+.filterButton__active:hover {
+  background-color: rgba(100, 111, 66, 0.9);
+}
+
+/*Cards*/
+
+.dogCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card {
+  margin: 0;
+  padding: 16px;
+  min-width: 250;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+  border: 1.5px solid var(--beige-light);
+  box-shadow: 0 2px 3px var(--beige-light);
+  color: var(--gray-dark);
+  border-radius: 12px;
+}
+
+.card h3 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 20px;
+}
+
+.card span {
+  font-size: 16px;
+  color: var(--gray-medium);
+}
+
+.likesContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 150px;
+}

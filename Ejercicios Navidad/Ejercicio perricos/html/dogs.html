@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/api.js"></script>
+    <title>Perros en adopción</title>
+    <link rel="stylesheet" href="../css/dogs.css" />
+  </head>
+  <body>
+    <div class="messageinfo"></div>
+    <header>
+      <div class="header__principalinfo">
+        <form class="search" action="search">
+          <input
+            class="search__input"
+            type="search"
+            placeholder="Buscar perros por sus nombres"
+          />
+          <img
+            class="search__icon icon24px"
+            src="../img/magnify.svg"
+            alt="magnify icon"
+          />
+        </form>
+        <div class="buttons__add">
+          <button class="button__add" id="add-1-perrico">
+            Añadir un perro
+          </button>
+          <button class="button__add" id="add-5-perrico">
+            Añadir varios perros
+          </button>
+        </div>
+      </div>
+      <div class="filters">
+        <button class="filter__toggle">
+          Filtros
+          <img
+            class="icon20px"
+            src="../img/filter-variant.svg"
+            alt="filter icon"
+          />
+        </button>
+        <div class="filter__panel">
+          <div class="selectwrapper">
+            <select class="filter" name="breed" id="dog-filter-breed"></select>
+            <img class="selectarrow icon20px" src="../img/arrow-down-drop-circle.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="buttons__filters" id="dog-filter-name"></div>
+    <div class="dogCards" id="dog-list"></div>
+  </body>
+  <script src="../js/dogs.js"></script>
+</html>

@@ -1,12 +1,31 @@
-//añadir: cuando pongo una raza que no hay ninguno que muestre un mensaje
-
 const perricosArray = [];
 let filterNameActive = [];
 let filterBreedsActive = "Todas las razas";
+let filterAgesActive = "Todas las edades";
+let filterSizeActive = "Todos los tamaños";
 let breeds;
+let passFilters = true;
 
-const cookieFull = "../img/cookie.svg";
-const cookieEmpty = "../img/cookie_empty.svg";
+const heartFull = "../img/heart.svg";
+const heartEmpty = "../img/heart-outline.svg";
+
+//Definición de edad de los perros
+
+const dogAge = ["Cachorro", "Adulto", "Senior"];
+
+function randomPerritoAge() {
+  const randomIndex = Math.floor(Math.random() * dogAge.length);
+  return dogAge[randomIndex];
+}
+
+//Definición de edad de los perros
+
+const dogSize = ["Pequeño", "Mediano", "Grande"];
+
+function randomPerritoSize() {
+  const randomIndex = Math.floor(Math.random() * dogSize.length);
+  return dogSize[randomIndex];
+}
 
 // Definición de nombres de perros
 
@@ -38,6 +57,14 @@ function randomPerritoName() {
   return dogName[randomIndex];
 }
 
+// Dar una raza aleatoria
+
+function randomPerritoBreed() {
+  breeds.unshift("Todas las razas");
+  const randomIndex = Math.floor(Math.random() * breeds.length);
+  return breeds[randomIndex];
+}
+
 //Abrir y cerrar filtros
 
 function toggleFilters() {
@@ -59,20 +86,64 @@ toggleFilters();
 
 //Mensajes informativos
 
-function addMessageInfo () {
+function addMessageInfo() {
   const addmessage = document.querySelector(".messageinfo");
-  addmessage.innerHTML=""
-  let texthtml
-  if (perricosArray.length==0) {
-    texthtml=`<p>Aún no hay perros por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`
-  }
+  addmessage.innerHTML = "";
+  let texthtml;
+  if (perricosArray.length == 0) {
+    texthtml = `<p>Aún no hay perros por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`;
+  } else if (passFilters === false)
+    texthtml = `<p>No hemos encontrado ningún perro con estos filtros. Cambia los filtros o añade más perros para seguir explorando.</p>`;
   else {
-    texthtml = ""
+    texthtml = "";
   }
-  addmessage.innerHTML = texthtml
+  addmessage.innerHTML = texthtml;
 }
 
-addMessageInfo()
+addMessageInfo();
+
+//Saber si algun perro pasa los filtros
+
+function passFiltersIsTrue() {
+  passFilters = false;
+  perricosArray.forEach(function (dog) {
+    const passBreed =
+      filterBreedsActive === "Todas las razas" ||
+      dog.perricoBreed === filterBreedsActive;
+
+    const passAge =
+      filterAgesActive === "Todas las edades" || dog.age === filterAgesActive;
+
+    const passSize =
+      filterSizeActive === "Todos los tamaños" || dog.size === filterSizeActive;
+
+    if (passBreed && passAge && passSize) {
+      passFilters = true;
+    }
+  });
+}
+
+passFiltersIsTrue();
+
+//Limpiar filtros
+function cleanFilters() {
+  const cleanFilters = document.querySelector(".clean__filters");
+  cleanFilters.addEventListener("click", function () {
+    filterBreedsActive = "Todas las razas";
+    filterAgesActive = "Todas las edades";
+    filterSizeActive = "Todos los tamaños";
+
+    document.querySelector("#dog-filter-breed").value = "selected";
+    document.querySelector("#dog-filter-age").value = "selected";
+    document.querySelector("#dog-filter-size").value = "selected";
+
+    renderPerricoArray();
+    passFiltersIsTrue();
+    addMessageInfo();
+  });
+}
+
+cleanFilters();
 
 //Filtrar por raza
 
@@ -81,9 +152,8 @@ async function filterBreeds() {
   breeds = Object.keys(message);
 
   const dogFilterBreed = document.querySelector("#dog-filter-breed");
-  dogFilterBreed.innerHTML = `<option value="" disabled selected>Filtrar por raza</option>`;
-
-  breeds.unshift("Todas las razas");
+  dogFilterBreed.innerHTML = `<option value="selected" disabled selected>Raza</option> 
+  <option class="capitalize" value="Todas las razas">Todas las razas</option>`;
 
   breeds.forEach(function (name) {
     const texthtml = `
@@ -95,18 +165,54 @@ async function filterBreeds() {
   dogFilterBreed.addEventListener("change", function () {
     filterBreedsActive = this.value;
     renderPerricoArray();
+    passFiltersIsTrue();
   });
 }
 
 filterBreeds();
 
-// Dar una raza aleatoria
+//Filtrar por etapa de vida
 
-function randomPerritoBreed() {
-  breeds.unshift("Todas las razas");
-  const randomIndex = Math.floor(Math.random() * breeds.length);
-  return breeds[randomIndex];
+function filterAge() {
+  const dogFilterAge = document.querySelector("#dog-filter-age");
+  dogFilterAge.innerHTML = `<option value="selected" disabled selected>Etapa de vida</option>
+  <option class="capitalize" value="Todas las edades">Todas las edades</option>`;
+
+  dogAge.forEach(function (age) {
+    const texthtml = `
+    <option class="capitalize" value="${age}">${age}</option>`;
+    dogFilterAge.innerHTML += texthtml;
+  });
+
+  dogFilterAge.addEventListener("change", function () {
+    filterAgesActive = this.value;
+    renderPerricoArray();
+  });
 }
+
+filterAge();
+
+//Filtrar por tamaño
+
+function filterSize() {
+  const dogFilterSize = document.querySelector("#dog-filter-size");
+  dogFilterSize.innerHTML = `<option value="selected" disabled selected>Tamaño</option>
+  <option class="capitalize" value="Todos los tamaños">Todos los tamaños</option>`;
+
+  dogSize.forEach(function (size) {
+    const texthtml = `
+    <option class="capitalize" value="${size}">${size}</option>`;
+
+    dogFilterSize.innerHTML += texthtml;
+  });
+
+  dogFilterSize.addEventListener("change", function () {
+    filterSizeActive = this.value;
+    renderPerricoArray();
+  });
+}
+
+filterSize();
 
 // Añadir perritos al pulsar los botones
 
@@ -122,30 +228,35 @@ function getBreedFromImageUrl(url) {
 // Añadir 1 perrito
 
 const addPerrico = async () => {
-  let perricoImg;
-  if (filterBreedsActive === "Todas las razas") {
-    perricoImg = await getRandomDogImage();
-  } else {
-    perricoImg = await getImageBreedActive();
-  }
-
+  let perricoImg =
+    filterBreedsActive === "Todas las razas"
+      ? await getRandomDogImage()
+      : await getImageBreedActive();
   const perricoBreed = getBreedFromImageUrl(perricoImg);
-
+  const age =
+    filterAgesActive === "Todas las edades"
+      ? randomPerritoAge()
+      : filterAgesActive;
   const name = randomPerritoName();
-  let cookie = cookieEmpty;
+  const size =
+    filterSizeActive === "Todos los tamaños"
+      ? randomPerritoSize()
+      : filterSizeActive;
+  let heart = heartEmpty;
+
   const perrico = {
     name,
+    age,
+    size,
     perricoBreed,
     perricoImg,
-    likes: Math.floor(Math.random() * 1001),
     isLiked: false,
-    cookie,
+    heart,
   };
 
   perricosArray.push(perrico);
 
-  renderPerricoFilter();
-  addMessageInfo()
+  addMessageInfo();
   renderPerricoArray();
 };
 
@@ -196,51 +307,6 @@ function enableAllButtons() {
   });
 }
 
-// Filtros por nombres
-
-function renderPerricoFilter() {
-  const dogFilterName = document.querySelector("#dog-filter-name");
-  dogFilterName.innerHTML = "";
-
-  const filterCount = {};
-  perricosArray.forEach(function (perrico) {
-    filterCount[perrico.name] = filterCount[perrico.name]
-      ? filterCount[perrico.name] + 1
-      : 1;
-  });
-
-  Object.keys(filterCount).forEach(function (name, index) {
-    const buttonElement = document.createElement("button");
-    buttonElement.className = `filterButton ${
-      filterNameActive.includes(name) ? "filterButton__active" : ""
-    }`;
-    buttonElement.innerText = `${name} (${filterCount[name]})`;
-
-    console.log("innerHtml posición", index, dogFilterName.innerHTML);
-    dogFilterName.appendChild(buttonElement);
-
-    buttonElement.addEventListener("click", function () {
-      if (filterNameActive.includes(name)) {
-        buttonElement.classList.remove("filterButton__active");
-        const removeName = filterNameActive.filter(function (dogName) {
-          return dogName !== name;
-        });
-        filterNameActive = removeName;
-        renderPerricoArray();
-
-        console.log(filterNameActive);
-
-        return;
-      }
-
-      buttonElement.classList.add("filterButton__active");
-      filterNameActive.push(name);
-
-      renderPerricoArray();
-    });
-  });
-}
-
 // Card del perrito en la interfaz
 
 function renderPerricoArray() {
@@ -248,23 +314,26 @@ function renderPerricoArray() {
   dogList.innerHTML = "";
 
   perricosArray.forEach(function (dog, index) {
-    const passNameFilter =
-      filterNameActive.length === 0 || filterNameActive.includes(dog.name);
-
     const passBreedFilter =
       filterBreedsActive === "Todas las razas" ||
       dog.perricoBreed === filterBreedsActive;
 
-    if (passNameFilter && passBreedFilter) {
+    const passAgeFilter =
+      filterAgesActive === "Todas las edades" || dog.age === filterAgesActive;
+
+    const passSizeFilter =
+      filterSizeActive === "Todos los tamaños" || dog.size === filterSizeActive;
+
+    if (passBreedFilter && passSizeFilter && passAgeFilter) {
       const htmlAdd = `<div class="card">
         <img src="${dog.perricoImg}" alt="Perro" />
-        <h3>${dog.name}</h3>
-        <span>Raza: <span class="capitalize">${dog.perricoBreed}</span></span>
-        <div class="likesContainer"> 
-          <span>${dog.likes}</span>
-          <img src="${dog.cookie}" alt=""> 
+        <div class="card__infoprincipal"> 
+          <h3>${dog.name}</h3>
+          <img data-like=${index} class="buttonheart icon20px" src="${dog.heart}" alt="heart icon"> 
         </div>
-        <button data-like=${index} class="buttonCookie">Darle una galleta</button>
+        <span>Raza: <span class="capitalize">${dog.perricoBreed}</span></span>
+        <span>Etapa de vida: ${dog.age}</span>
+        <span>Tamaño: ${dog.size}</span>
       </div>`;
 
       console.log("innerHtml posición", index, dogList.innerHTML);
@@ -273,13 +342,15 @@ function renderPerricoArray() {
     }
   });
 
+  passFiltersIsTrue();
+  addMessageInfo();
   likePerrico();
 }
 
 //Darle un like al perrico
 
 function likePerrico() {
-  const likeButton = document.querySelectorAll(".buttonCookie");
+  const likeButton = document.querySelectorAll(".buttonheart");
 
   likeButton.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -288,13 +359,11 @@ function likePerrico() {
 
       function perricoaddlike(perrico) {
         if (perrico.isLiked === false) {
-          perrico.likes += 1;
           perrico.isLiked = true;
-          perrico.cookie = cookieFull;
+          perrico.heart = heartFull;
         } else {
-          perrico.likes -= 1;
           perrico.isLiked = false;
-          perrico.cookie = cookieEmpty;
+          perrico.heart = heartEmpty;
         }
       }
       perricoaddlike(perrico);

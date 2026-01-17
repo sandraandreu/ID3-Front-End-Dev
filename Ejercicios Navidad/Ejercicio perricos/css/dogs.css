@@ -79,9 +79,9 @@ button:disabled {
   gap: 8px;
   font-size: 16px;
   font-weight: normal;
-  color: var(--terracotta-soft);
+  color: var(--green);
   background-color: var(--white-warm);
-  border: 1.5px solid var(--terracotta-soft);
+  border: 1.5px solid var(--green);
   border-radius: 8px;
 }
 
@@ -89,7 +89,7 @@ button:disabled {
   background-color: var(--beige-light);
 }
 
-.filter {
+.filter,.clean__filters {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -100,15 +100,15 @@ button:disabled {
   gap: 8px;
   font-size: 16px;
   font-weight: normal;
-  color: var(--terracotta-soft);
+  color: var(--green);
   background-color: var(--white-warm);
-  border: 1.5px solid var(--terracotta-soft);
+  border: 1.5px solid var(--green);
   border-radius: 8px;
 }
 
 .filter:focus {
-  outline-color: var(--terracotta-soft);
-  color: var(--terracotta-soft);
+  outline-color: var(--green);
+  color: var(--green);
 }
 
 /*Icons*/
@@ -140,7 +140,8 @@ button:disabled {
 header {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
+  margin-bottom: 48px;
 }
 
 .header__principalinfo {
@@ -211,15 +212,6 @@ input[type="search"]::placeholder {
   pointer-events: none;
 }
 
-.filterButton__active {
-  background-color: #646f42;
-  color: #e9edc9;
-}
-
-.filterButton__active:hover {
-  background-color: rgba(100, 111, 66, 0.9);
-}
-
 /*Cards*/
 
 .dogCards {
@@ -243,6 +235,12 @@ input[type="search"]::placeholder {
   border-radius: 12px;
 }
 
+.card__infoprincipal { 
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .card h3 {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 20px;
@@ -251,13 +249,6 @@ input[type="search"]::placeholder {
 .card span {
   font-size: 16px;
   color: var(--gray-medium);
-}
-
-.likesContainer {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
 }
 
 img {

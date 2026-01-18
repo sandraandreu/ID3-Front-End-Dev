@@ -4,6 +4,7 @@ let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";
 let filterSizeActive = "Todos los tamaños";
 let breeds;
+let search = undefined;
 let passFilters = true;
 
 const heartFull = "../img/heart.svg";
@@ -83,6 +84,19 @@ function addMessageInfo() {
 
 addMessageInfo();
 
+//Buscador por nombres
+
+function searcher() {
+  const input = document.querySelector(".search__input");
+
+  input.addEventListener("input", function () {
+    search = input.value.toLowerCase();
+    renderPerricoArray();
+  });
+}
+
+searcher();
+
 //Abrir y cerrar filtros
 
 function toggleFilters() {
@@ -107,6 +121,9 @@ toggleFilters();
 function passFiltersIsTrue() {
   passFilters = false;
   perricosArray.forEach(function (dog) {
+    const passSearcher =
+      search === undefined || dog.name.toLowerCase().includes(search);
+
     const passBreed =
       filterBreedsActive === "Todas las razas" ||
       dog.perricoBreed === filterBreedsActive;
@@ -117,7 +134,7 @@ function passFiltersIsTrue() {
     const passSize =
       filterSizeActive === "Todos los tamaños" || dog.size === filterSizeActive;
 
-    if (passBreed && passAge && passSize) {
+    if (passSearcher && passBreed && passAge && passSize) {
       passFilters = true;
     }
   });
@@ -343,6 +360,9 @@ function renderPerricoArray() {
   dogList.innerHTML = "";
 
   perricosArray.forEach(function (dog, index) {
+    const passSearcher =
+      search === undefined || dog.name.toLowerCase().includes(search);
+
     const passBreedFilter =
       filterBreedsActive === "Todas las razas" ||
       dog.perricoBreed === filterBreedsActive;
@@ -353,7 +373,7 @@ function renderPerricoArray() {
     const passSizeFilter =
       filterSizeActive === "Todos los tamaños" || dog.size === filterSizeActive;
 
-    if (passBreedFilter && passSizeFilter && passAgeFilter) {
+    if (passSearcher && passBreedFilter && passSizeFilter && passAgeFilter) {
       const htmlAdd = `<div class="card">
         <img class="card__img" src="${dog.perricoImg}" alt="Perro" />
         <div class="card__infoprincipal"> 

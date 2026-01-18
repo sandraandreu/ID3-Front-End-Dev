@@ -65,25 +65,6 @@ function randomPerritoBreed() {
   return breeds[randomIndex];
 }
 
-//Abrir y cerrar filtros
-
-function toggleFilters() {
-  const filterToggle = document.querySelector(".filter__toggle");
-  const filterPanel = document.querySelector(".filter__panel");
-
-  filterToggle.addEventListener("click", function () {
-    if (document.querySelector(".filter__panel__active")) {
-      filterToggle.classList.remove("filter__toggle__desactive");
-      filterPanel.classList.remove("filter__panel__active");
-    } else {
-      filterPanel.classList.add("filter__panel__active");
-      filterToggle.classList.add("filter__toggle__desactive");
-    }
-  });
-}
-
-toggleFilters();
-
 //Mensajes informativos
 
 function addMessageInfo() {
@@ -101,6 +82,25 @@ function addMessageInfo() {
 }
 
 addMessageInfo();
+
+//Abrir y cerrar filtros
+
+function toggleFilters() {
+  const filterToggle = document.querySelector(".filter__toggle");
+  const filterPanel = document.querySelector(".filter__panel");
+
+  filterToggle.addEventListener("click", function () {
+    if (document.querySelector(".filter__panel__active")) {
+      filterToggle.classList.remove("filter__toggle__open");
+      filterPanel.classList.remove("filter__panel__active");
+    } else {
+      filterPanel.classList.add("filter__panel__active");
+      filterToggle.classList.add("filter__toggle__open");
+    }
+  });
+}
+
+toggleFilters();
 
 //Saber si algun perro pasa los filtros
 
@@ -125,7 +125,35 @@ function passFiltersIsTrue() {
 
 passFiltersIsTrue();
 
+//Badge para los filtros activos
+
+function badge() {
+  const badge = document.querySelector(".filters__badge");
+
+  let totalFilterActive = [
+    filterBreedsActive != "Todas las razas",
+    filterAgesActive != "Todas las edades",
+    filterSizeActive != "Todos los tamaños",
+  ];
+  let numberBadge = 0;
+  const filtersActive = totalFilterActive.filter(function (value) {
+    return value === true;
+  }).length;
+
+  numberBadge = filtersActive;
+
+  if (numberBadge < 4 && numberBadge > 0) {
+    badge.innerHTML = `<span>${numberBadge}</span>`;
+    badge.classList.add("filters__badge__active");
+  } else {
+    numberBadge = 0;
+    badge.innerHTML = ``;
+    badge.classList.remove("filters__badge__active");
+  }
+}
+
 //Limpiar filtros
+
 function cleanFilters() {
   const cleanFilters = document.querySelector(".clean__filters");
   cleanFilters.addEventListener("click", function () {
@@ -137,6 +165,7 @@ function cleanFilters() {
     document.querySelector("#dog-filter-age").value = "selected";
     document.querySelector("#dog-filter-size").value = "selected";
 
+    badge();
     renderPerricoArray();
     passFiltersIsTrue();
     addMessageInfo();
@@ -326,7 +355,7 @@ function renderPerricoArray() {
 
     if (passBreedFilter && passSizeFilter && passAgeFilter) {
       const htmlAdd = `<div class="card">
-        <img src="${dog.perricoImg}" alt="Perro" />
+        <img class="card__img" src="${dog.perricoImg}" alt="Perro" />
         <div class="card__infoprincipal"> 
           <h3>${dog.name}</h3>
           <img data-like=${index} class="buttonheart icon20px" src="${dog.heart}" alt="heart icon"> 
@@ -342,6 +371,7 @@ function renderPerricoArray() {
     }
   });
 
+  badge();
   passFiltersIsTrue();
   addMessageInfo();
   likePerrico();

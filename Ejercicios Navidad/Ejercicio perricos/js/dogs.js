@@ -1,11 +1,9 @@
 const perricosArray = [];
-let filterNameActive = [];
 let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";
 let filterSizeActive = "Todos los tamaños";
 let breeds;
 let search = undefined;
-let passFilters = true;
 
 const heartFull = "../img/heart.svg";
 const heartEmpty = "../img/heart-outline.svg";
@@ -313,11 +311,11 @@ function renderPerricoArray() {
   addmessage.innerHTML = "";
   dogList.innerHTML = "";
 
-  hasResults = false;
+  let hasResults = false;
 
   perricosArray.forEach(function (dog, index) {
     const passSearch =
-      search === undefined || dog.name.toLowerCase().includes(search);
+      search === undefined || dog.name.toLowerCase().startsWith(search);
     const passBreed =
       filterBreedsActive === "Todas las razas" ||
       dog.perricoBreed === filterBreedsActive;

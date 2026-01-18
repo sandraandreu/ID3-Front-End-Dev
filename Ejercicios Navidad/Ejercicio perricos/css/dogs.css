@@ -20,15 +20,21 @@
 /*General*/
 
 html {
+  margin: 0;
+  padding: 0;
   background-color: var(--white-warm);
 }
 
 body {
-  position: relative;
-  height: 100vh;
-  padding: 32px;
+  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--gray-dark);
+}
+
+main {
+  position: relative;
+  height: 85vh;
+  padding: 16px 32px 32px 32px;
 }
 
 h1,
@@ -43,6 +49,32 @@ span {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+/*Top bar*/
+
+.topbar {
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0 2px 3px var(--beige-light);
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: var(--green);
 }
 
 /*Buttons y filtros*/
@@ -124,6 +156,7 @@ button:disabled {
 .filter:focus {
   outline-color: var(--terracotta-soft);
   color: var(--terracotta-soft);
+  background-color: var(--white-warm);
 }
 
 .filter__toggle:hover,
@@ -198,17 +231,16 @@ button:disabled {
   align-self: flex-start;
   width: 100%;
   padding: 8px 12px;
-
   background-color: var(--beige-light);
   border: none;
   border-radius: 8px;
 }
 
-input[type="search"]:focus {
+input[type="text"]:focus {
   outline-color: var(--gray-medium);
 }
 
-input[type="search"]::placeholder {
+input[type="text"]::placeholder {
   color: var(--gray-medium);
 }
 
@@ -305,7 +337,7 @@ header {
 }
 
 .card h3 {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  color: var(--green);
   font-size: 20px;
 }
 

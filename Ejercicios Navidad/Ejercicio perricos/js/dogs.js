@@ -66,24 +66,6 @@ function randomPerritoBreed() {
   return breeds[randomIndex];
 }
 
-//Mensajes informativos
-
-function addMessageInfo() {
-  const addmessage = document.querySelector(".messageinfo");
-  addmessage.innerHTML = "";
-  let texthtml;
-  if (perricosArray.length == 0) {
-    texthtml = `<p>Aún no hay perros por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`;
-  } else if (passFilters === false)
-    texthtml = `<p>No hemos encontrado ningún perro con estos filtros. Cambia los filtros o añade más perros para seguir explorando.</p>`;
-  else {
-    texthtml = "";
-  }
-  addmessage.innerHTML = texthtml;
-}
-
-addMessageInfo();
-
 //Buscador por nombres
 
 function searcher() {
@@ -115,32 +97,6 @@ function toggleFilters() {
 }
 
 toggleFilters();
-
-//Saber si algun perro pasa los filtros
-
-function passFiltersIsTrue() {
-  passFilters = false;
-  perricosArray.forEach(function (dog) {
-    const passSearcher =
-      search === undefined || dog.name.toLowerCase().includes(search);
-
-    const passBreed =
-      filterBreedsActive === "Todas las razas" ||
-      dog.perricoBreed === filterBreedsActive;
-
-    const passAge =
-      filterAgesActive === "Todas las edades" || dog.age === filterAgesActive;
-
-    const passSize =
-      filterSizeActive === "Todos los tamaños" || dog.size === filterSizeActive;
-
-    if (passSearcher && passBreed && passAge && passSize) {
-      passFilters = true;
-    }
-  });
-}
-
-passFiltersIsTrue();
 
 //Badge para los filtros activos
 
@@ -184,8 +140,6 @@ function cleanFilters() {
 
     badge();
     renderPerricoArray();
-    passFiltersIsTrue();
-    addMessageInfo();
   });
 }
 
@@ -211,7 +165,6 @@ async function filterBreeds() {
   dogFilterBreed.addEventListener("change", function () {
     filterBreedsActive = this.value;
     renderPerricoArray();
-    passFiltersIsTrue();
   });
 }
 
@@ -302,7 +255,6 @@ const addPerrico = async () => {
 
   perricosArray.push(perrico);
 
-  addMessageInfo();
   renderPerricoArray();
 };
 
@@ -357,23 +309,26 @@ function enableAllButtons() {
 
 function renderPerricoArray() {
   const dogList = document.querySelector("#dog-list");
+  const addmessage = document.querySelector(".messageinfo");
+  addmessage.innerHTML = "";
   dogList.innerHTML = "";
 
-  perricosArray.forEach(function (dog, index) {
-    const passSearcher =
-      search === undefined || dog.name.toLowerCase().includes(search);
+  hasResults = false;
 
-    const passBreedFilter =
+  perricosArray.forEach(function (dog, index) {
+    const passSearch =
+      search === undefined || dog.name.toLowerCase().includes(search);
+    const passBreed =
       filterBreedsActive === "Todas las razas" ||
       dog.perricoBreed === filterBreedsActive;
-
-    const passAgeFilter =
+    const passAge =
       filterAgesActive === "Todas las edades" || dog.age === filterAgesActive;
-
-    const passSizeFilter =
+    const passSize =
       filterSizeActive === "Todos los tamaños" || dog.size === filterSizeActive;
 
-    if (passSearcher && passBreedFilter && passSizeFilter && passAgeFilter) {
+    if (passBreed && passAge && passSize && passSearch) {
+      hasResults = true;
+
       const htmlAdd = `<div class="card">
         <img class="card__img" src="${dog.perricoImg}" alt="Perro" />
         <div class="card__infoprincipal"> 
@@ -385,15 +340,16 @@ function renderPerricoArray() {
         <span>Tamaño: ${dog.size}</span>
       </div>`;
 
-      console.log("innerHtml posición", index, dogList.innerHTML);
-
       dogList.innerHTML += htmlAdd;
     }
   });
 
+  if (perricosArray.length == 0) {
+    addmessage.innerHTML = `<p>Aún no hay perros por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`;
+  } else if (hasResults === false)
+    addmessage.innerHTML = `<p>No hemos encontrado ningún perro con estos filtros. Cambia los filtros o añade más perros para seguir explorando.</p>`;
+
   badge();
-  passFiltersIsTrue();
-  addMessageInfo();
   likePerrico();
 }
 

@@ -1,32 +1,36 @@
-const perricosArray = [];
+const dogsArray = [];
+const dogsArrayFavourites = []
 let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";
 let filterSizeActive = "Todos los tamaños";
 let breeds;
-let search = undefined;
+let search = "";
+
+const DOGS_STORAGE_KEY = "Perros añadidos anteriormente:";
+const DOGS_FAVOURITES_STORAGE_KEY = "Perros favoritos:";
 
 const heartFull = "../img/heart.svg";
 const heartEmpty = "../img/heart-outline.svg";
 
-//Definición de edad de los perros
+//Definición de edad de los dogs
 
 const dogAge = ["Cachorro", "Adulto", "Senior"];
 
-function randomPerritoAge() {
+function randomDogAge() {
   const randomIndex = Math.floor(Math.random() * dogAge.length);
   return dogAge[randomIndex];
 }
 
-//Definición de edad de los perros
+//Definición de edad de los dogs
 
 const dogSize = ["Pequeño", "Mediano", "Grande"];
 
-function randomPerritoSize() {
+function randomDogSize() {
   const randomIndex = Math.floor(Math.random() * dogSize.length);
   return dogSize[randomIndex];
 }
 
-// Definición de nombres de perros
+// Definición de nombres de dogs
 
 const dogName = [
   "Sucky",
@@ -110,14 +114,14 @@ const dogName = [
   "Rayo",
 ];
 
-function randomPerritoName() {
+function randomDogName() {
   const randomIndex = Math.floor(Math.random() * dogName.length);
   return dogName[randomIndex];
 }
 
 // Dar una raza aleatoria
 
-function randomPerritoBreed() {
+function randomDogBreed() {
   breeds.unshift("Todas las razas");
   const randomIndex = Math.floor(Math.random() * breeds.length);
   return breeds[randomIndex];
@@ -130,7 +134,7 @@ function searcher() {
 
   input.addEventListener("input", function () {
     search = input.value.toLowerCase();
-    renderPerricoArray();
+    renderDogArray();
   });
 }
 
@@ -143,13 +147,8 @@ function toggleFilters() {
   const filterPanel = document.querySelector(".filter__panel");
 
   filterToggle.addEventListener("click", function () {
-    if (document.querySelector(".filter__panel__active")) {
-      filterToggle.classList.remove("filter__toggle__open");
-      filterPanel.classList.remove("filter__panel__active");
-    } else {
-      filterPanel.classList.add("filter__panel__active");
-      filterToggle.classList.add("filter__toggle__open");
-    }
+    filterPanel.classList.toggle("filter__panel__active");
+    filterToggle.classList.toggle("filter__toggle__open");
   });
 }
 
@@ -173,12 +172,10 @@ function badge() {
   numberBadge = filtersActive;
 
   if (numberBadge < 4 && numberBadge > 0) {
-    badge.innerHTML = `<span>${numberBadge}</span>`;
-    badge.classList.add("filters__badge__active");
+    badge.innerHTML = `<span class="filters__badge__active">${numberBadge}</span>`;
   } else {
     numberBadge = 0;
     badge.innerHTML = ``;
-    badge.classList.remove("filters__badge__active");
   }
 }
 
@@ -196,7 +193,7 @@ function cleanFilters() {
     document.querySelector("#dog-filter-size").value = "selected";
 
     badge();
-    renderPerricoArray();
+    renderDogArray();
   });
 }
 
@@ -221,7 +218,7 @@ async function filterBreeds() {
 
   dogFilterBreed.addEventListener("change", function () {
     filterBreedsActive = this.value;
-    renderPerricoArray();
+    renderDogArray();
   });
 }
 
@@ -242,7 +239,7 @@ function filterAge() {
 
   dogFilterAge.addEventListener("change", function () {
     filterAgesActive = this.value;
-    renderPerricoArray();
+    renderDogArray();
   });
 }
 
@@ -264,7 +261,7 @@ function filterSize() {
 
   dogFilterSize.addEventListener("change", function () {
     filterSizeActive = this.value;
-    renderPerricoArray();
+    renderDogArray();
   });
 }
 
@@ -283,24 +280,22 @@ function getBreedFromImageUrl(url) {
 
 // Añadir 1 perrito
 
-const addPerrico = async () => {
+const addDog = async () => {
   let img =
     filterBreedsActive === "Todas las razas"
       ? await getRandomDogImage()
       : await getImageBreedActive();
   const breed = getBreedFromImageUrl(img);
   const age =
-    filterAgesActive === "Todas las edades"
-      ? randomPerritoAge()
-      : filterAgesActive;
-  const name = randomPerritoName();
+    filterAgesActive === "Todas las edades" ? randomDogAge() : filterAgesActive;
+  const name = randomDogName();
   const size =
     filterSizeActive === "Todos los tamaños"
-      ? randomPerritoSize()
+      ? randomDogSize()
       : filterSizeActive;
   let heart = heartEmpty;
 
-  const perrico = {
+  const dog = {
     name,
     age,
     size,
@@ -310,39 +305,35 @@ const addPerrico = async () => {
     heart,
   };
 
-  perricosArray.push(perrico);
+  dogsArray.push(dog);
 
-  renderPerricoArray();
+  localStorage.setItem(DOGS_STORAGE_KEY, JSON.stringify(dogsArray));
+
+  renderDogArray();
 };
 
-renderPerricoArray();
+renderDogArray();
 
 document
-  .querySelector("#add-1-perrico")
+  .querySelector("#add-1-dog")
   .addEventListener("click", async function () {
     disabledAllButtons();
-    await addPerrico();
+    await addDog();
     enableAllButtons();
   });
 
-// Añadir 5 perricos
+// Añadir 5 dogs
 
-async function add5Perrico() {
-  await Promise.all([
-    addPerrico(),
-    addPerrico(),
-    addPerrico(),
-    addPerrico(),
-    addPerrico(),
-  ]);
+async function add5Dog() {
+  await Promise.all([addDog(), addDog(), addDog(), addDog(), addDog()]);
   console.log("end");
 }
 
 document
-  .querySelector("#add-5-perrico")
+  .querySelector("#add-5-dog")
   .addEventListener("click", async function () {
     disabledAllButtons();
-    await add5Perrico();
+    await add5Dog();
     enableAllButtons();
   });
 
@@ -362,9 +353,32 @@ function enableAllButtons() {
   });
 }
 
+//Mostrar los perros añadidos a local storage
+
+function loadPreviousDogs() {
+  const previousDogs = localStorage.getItem(DOGS_STORAGE_KEY)
+  if(previousDogs) {
+    dogsArray.push(...JSON.parse(previousDogs))
+  }
+}
+
+loadPreviousDogs()
+renderDogArray()
+
+//Mostrar los perros que has guardado en favoritos en local storage
+
+function loadFavouriteDogs () {
+  const favouriteDogs = localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY)
+
+  if(favouriteDogs) {
+    dogsArrayFavourites.push(...JSON.parse(favouriteDogs))
+  }
+}
+
+
 // Card del perrito en la interfaz
 
-function renderPerricoArray() {
+function renderDogArray() {
   const dogList = document.querySelector("#dog-list");
   const addmessage = document.querySelector(".messageinfo");
   addmessage.innerHTML = "";
@@ -372,9 +386,9 @@ function renderPerricoArray() {
 
   let hasResults = false;
 
-  perricosArray.forEach(function (dog, index) {
+  dogsArray.forEach(function (dog, index) {
     const passSearch =
-      search === undefined ||
+      !search ||
       dog.name.toLowerCase().startsWith(search) ||
       dog.breed.toLowerCase().startsWith(search);
     const passBreed =
@@ -403,36 +417,38 @@ function renderPerricoArray() {
     }
   });
 
-  if (perricosArray.length == 0) {
-    addmessage.innerHTML = `<p>Aún no hay perros por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`;
+  if (dogsArray.length == 0) {
+    addmessage.innerHTML = `<p>Aún no hay perritos por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`;
   } else if (hasResults === false)
     addmessage.innerHTML = `<p>No hemos encontrado ningún perro con estos filtros. Cambia los filtros o añade más perros para seguir explorando.</p>`;
 
   badge();
-  likePerrico();
+  likeDog();
 }
 
-//Darle un like al perrico
+//Darle un like al dog
 
-function likePerrico() {
+function likeDog() {
   const likeButton = document.querySelectorAll(".buttonheart");
 
   likeButton.forEach(function (button) {
     button.addEventListener("click", function () {
       const idButtonClicked = Number(button.getAttribute("data-like"));
-      const perrico = perricosArray[idButtonClicked];
+      const dog = dogsArray[idButtonClicked];
 
-      function perricoaddlike(perrico) {
-        if (perrico.isLiked === false) {
-          perrico.isLiked = true;
-          perrico.heart = heartFull;
+      function dogaddlike(dog) {
+        if (dog.isLiked === false) {
+          dog.isLiked = true;
+          dog.heart = heartFull;
+          localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY,(JSON.stringify(dogsArray)))
+          localStorage.setItem(DOGS_STORAGE_KEY,(JSON.stringify(dogsArray)))
         } else {
-          perrico.isLiked = false;
-          perrico.heart = heartEmpty;
+          dog.isLiked = false;
+          dog.heart = heartEmpty;
         }
       }
-      perricoaddlike(perrico);
-      renderPerricoArray();
+      dogaddlike(dog);
+      renderDogArray();
     });
   });
 }

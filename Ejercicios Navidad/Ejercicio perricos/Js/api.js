@@ -1,5 +1,5 @@
 async function getRandomDogImage() {
-  const url = `https://dog.ceo/api/breed/${randomPerritoBreed()}/images/random`;
+  const url = `https://dog.ceo/api/breed/${randomDogBreed()}/images/random`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

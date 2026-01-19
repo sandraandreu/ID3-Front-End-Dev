@@ -49,6 +49,65 @@ const dogName = [
   "Chispa",
   "Rocco",
   "Sombra",
+  "Luna",
+  "Max",
+  "Thor",
+  "Kira",
+  "Bruno",
+  "Nala",
+  "Simba",
+  "Toby",
+  "Milo",
+  "Duna",
+  "Bimba",
+  "Coco",
+  "Zeus",
+  "Noa",
+  "Dana",
+  "Leo",
+  "Bobby",
+  "Arya",
+  "Hera",
+  "Odin",
+  "Maya",
+  "Teo",
+  "Kala",
+  "Rex",
+  "Olga",
+  "Paco",
+  "Nube",
+  "Ron",
+  "Greta",
+  "Koko",
+  "Vito",
+  "Linda",
+  "Bruce",
+  "Nina",
+  "Trufa",
+  "Pipa",
+  "Otto",
+  "Loki",
+  "Balu",
+  "Kiara",
+  "Hugo",
+  "Mora",
+  "Rock",
+  "Tina",
+  "Chico",
+  "Bowie",
+  "Sira",
+  "Bongo",
+  "Nero",
+  "India",
+  "Polo",
+  "Taco",
+  "Rita",
+  "Blue",
+  "Sunny",
+  "Shadow",
+  "Lucky",
+  "Mimi",
+  "Rayo",
 ];
 
 function randomPerritoName() {
@@ -64,7 +123,7 @@ function randomPerritoBreed() {
   return breeds[randomIndex];
 }
 
-//Buscador por nombres
+//Buscador
 
 function searcher() {
   const input = document.querySelector(".search__input");
@@ -225,11 +284,11 @@ function getBreedFromImageUrl(url) {
 // Añadir 1 perrito
 
 const addPerrico = async () => {
-  let perricoImg =
+  let img =
     filterBreedsActive === "Todas las razas"
       ? await getRandomDogImage()
       : await getImageBreedActive();
-  const perricoBreed = getBreedFromImageUrl(perricoImg);
+  const breed = getBreedFromImageUrl(img);
   const age =
     filterAgesActive === "Todas las edades"
       ? randomPerritoAge()
@@ -245,8 +304,8 @@ const addPerrico = async () => {
     name,
     age,
     size,
-    perricoBreed,
-    perricoImg,
+    breed,
+    img,
     isLiked: false,
     heart,
   };
@@ -315,10 +374,12 @@ function renderPerricoArray() {
 
   perricosArray.forEach(function (dog, index) {
     const passSearch =
-      search === undefined || dog.name.toLowerCase().startsWith(search);
+      search === undefined ||
+      dog.name.toLowerCase().startsWith(search) ||
+      dog.breed.toLowerCase().startsWith(search);
     const passBreed =
       filterBreedsActive === "Todas las razas" ||
-      dog.perricoBreed === filterBreedsActive;
+      dog.breed === filterBreedsActive;
     const passAge =
       filterAgesActive === "Todas las edades" || dog.age === filterAgesActive;
     const passSize =
@@ -328,12 +389,12 @@ function renderPerricoArray() {
       hasResults = true;
 
       const htmlAdd = `<div class="card">
-        <img class="card__img" src="${dog.perricoImg}" alt="Perro" />
+        <img class="card__img" src="${dog.img}" alt="Perro" />
         <div class="card__infoprincipal"> 
           <h3>${dog.name}</h3>
           <img data-like=${index} class="buttonheart icon20px" src="${dog.heart}" alt="heart icon"> 
         </div>
-        <span>Raza: <span class="capitalize">${dog.perricoBreed}</span></span>
+        <span>Raza: <span class="capitalize">${dog.breed}</span></span>
         <span>Etapa de vida: ${dog.age}</span>
         <span>Tamaño: ${dog.size}</span>
       </div>`;

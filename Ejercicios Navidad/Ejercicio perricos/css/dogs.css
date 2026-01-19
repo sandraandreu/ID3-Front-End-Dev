@@ -99,7 +99,6 @@ nav a {
 }
 
 .button__add:active,
-.buttonheart:active,
 .filter__toggle:active,
 .clean__filters:active {
   transform: scale(1) translateY(1px);

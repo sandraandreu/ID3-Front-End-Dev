@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src=""></script>
+    <title>Perros en adopción</title>
+    <link rel="stylesheet" href="../css/general.css" />
+    <link rel="stylesheet" href="../css/favourites.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="logo"><span>logo en proceso</span><img src="" alt="" /></div>
+      <nav>
+        <ul class="nav">
+          <a href="dogs.html">Nuestros perros</a>
+          <a href="contact.html">Contacto</a>
+          <a class="page__active" href="favourites.html">Tus favoritos</a>
+        </ul>
+      </nav>
+    </div>
+    <div class="messageinfo"></div>
+    <main>
+      <header>
+        <div class="header__titleAndSubtitle">
+          <div class="header__title">
+            <h1>Tus perros favoritos</h1>
+            <img class="icon24px" src="../img/heart.svg" alt="icon heart" />
+          </div>
+
+          <p class="header__intro">
+            Aquí puedes volver a ver los perros que más te han gustado y tomarte
+            tu tiempo para conocerlos mejor. Cada uno está esperando una
+            oportunidad para formar parte de un nuevo hogar.
+          </p>
+        </div>
+        <a href="contact.html" class="calltoaction__secundary"
+          >¿Listo para dar el siguiente paso?</a
+        >
+      </header>
+
+      <div class="dogCards" id="favourite-dogs-list"></div>
+    </main>
+  </body>
+  <script src="../js/dogs.js"></script>
+  <script src="../js/favourites.js"></script>
+</html>

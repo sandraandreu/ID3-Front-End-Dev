@@ -1,28 +1,6 @@
-/*Variables de color*/
-
-:root {
-  --white-warm: rgb(245, 244, 240);
-  --beige-light: rgb(226, 224, 218);
-  --beige-medium: rgb(190, 184, 174);
-
-  --gray-dark: rgb(43, 43, 43);
-  --gray-medium: rgb(111, 111, 111);
-
-  --green-soft: rgb(122, 142, 124);
-  --green: rgb(79, 111, 82);
-  --green-06: rgb(79, 111, 82, 0.6);
-
-  --sand-warm: rgb(212, 163, 115);
-
-  --green-success: rgb(95, 163, 106);
-  --red-soft: rgb(196, 74, 74);
-}
-
 /*General*/
 
 body {
-  margin: 0;
-  padding: 0;
   height: 100vh;
 
   background-image: url(../img/dog-bulldog-background.jpg);
@@ -30,49 +8,11 @@ body {
   background-position: center bottom;
   background-repeat: no-repeat;
   overflow: hidden;
-
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--gray-dark);
-}
-
-h1,
-h2,
-p {
-  padding: 0;
-  margin: 0;
 }
 
 h1 {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  color: var(--gray-dark);
   font-size: 48px;
-}
-
-.header__titleAndSubtitle h2 {
-  font-size: 20px;
-  font-weight: normal;
-}
-
-/*Call to action*/
-
-.calltoaction {
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: normal;
-  color: var(--white-warm);
-
-  padding: 12px 24px;
-  background-color: var(--green);
-  text-decoration: none;
-  border-radius: 16px;
-  box-shadow: 0 2px 4px var(--green-06);
-}
-
-.calltoaction:hover {
-  background-color: var(--green-soft);
-}
-
-.calltoaction:active {
-  transform: translateY(2px);
 }
 
 /*Header*/
@@ -93,4 +33,9 @@ header {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.header__subtitle {
+  font-size: 20px;
+  font-weight: normal;
 }

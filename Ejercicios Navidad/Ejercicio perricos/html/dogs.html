@@ -5,24 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="../js/api.js"></script>
     <title>Perros en adopción</title>
+    <link rel="stylesheet" href="../css/general.css" />
     <link rel="stylesheet" href="../css/dogs.css" />
   </head>
   <body>
     <div class="topbar">
       <div class="logo"><span>logo en proceso</span><img src="" alt="" /></div>
-
       <nav>
         <ul class="nav">
-          <a href="">Nuestros perros</a>
-          <a href="">Contacto</a>
-          <a href="">Tus favoritos</a>
+          <a class="page__active" href="dogs.html">Nuestros perros</a>
+          <a href="contact.html">Contacto</a>
+          <a href="favourites.html">Tus favoritos</a>
         </ul>
       </nav>
     </div>
+    <div class="messageinfo"></div>
 
     <main>
-      <div class="messageinfo"></div>
-
       <header>
         <div class="header__principalinfo">
           <form class="search" action="search">
@@ -38,9 +37,7 @@
             />
           </form>
           <div class="buttons__add">
-            <button class="button__add" id="add-1-dog">
-              Añadir un perro
-            </button>
+            <button class="button__add" id="add-1-dog">Añadir un perro</button>
             <button class="button__add" id="add-5-dog">
               Añadir varios perros
             </button>
@@ -92,7 +89,6 @@
         </div>
       </header>
 
-      <div class="buttons__filters" id="dog-filter-name"></div>
       <div class="dogCards" id="dog-list"></div>
     </main>
   </body>

@@ -1,5 +1,15 @@
+//Cosas para ir implementando
+//Página de mis favoritos donde se veran los perros que hayas dado like con anterioridad
+//Página de contacto
+//Formulario
+//Poder ver detalles de cada perro
+//Descripción
+//Características de su personalidad
+//Boton para contactar
+//Desplegable para busquedas que coincidan
+//Guardar en local storatge los filtros aplicados
+
 const dogsArray = [];
-const dogsArrayFavourites = [];
 let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";
 let filterSizeActive = "Todos los tamaños";
@@ -366,6 +376,7 @@ function saveDogsFavouritesStoratge() {
     return dog.isLiked === true;
   });
   localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
+  
 }
 
 //Mostrar los perros añadidos a local storage
@@ -380,15 +391,6 @@ function loadPreviousDogs() {
 loadPreviousDogs();
 renderDogArray();
 
-//Mostrar los perros que has guardado en favoritos en local storage
-
-function loadFavouriteDogs() {
-  const favouriteDogs = localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY);
-
-  if (favouriteDogs) {
-    dogsArrayFavourites.push(...JSON.parse(favouriteDogs));
-  }
-}
 
 // Card del perrito en la interfaz
 
@@ -466,6 +468,9 @@ function likeDog() {
       }
       dogaddlike(dog);
       renderDogArray();
+
     });
   });
 }
+
+

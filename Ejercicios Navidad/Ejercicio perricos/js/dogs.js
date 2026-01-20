@@ -1,5 +1,5 @@
 const dogsArray = [];
-const dogsArrayFavourites = []
+const dogsArrayFavourites = [];
 let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";
 let filterSizeActive = "Todos los tamaños";
@@ -307,7 +307,7 @@ const addDog = async () => {
 
   dogsArray.push(dog);
 
-  localStorage.setItem(DOGS_STORAGE_KEY, JSON.stringify(dogsArray));
+  saveDogsStoratge();
 
   renderDogArray();
 };
@@ -353,28 +353,42 @@ function enableAllButtons() {
   });
 }
 
+//Guardar en local storatge los perros
+
+function saveDogsStoratge() {
+  localStorage.setItem(DOGS_STORAGE_KEY, JSON.stringify(dogsArray));
+}
+
+//Guardar en local storatge los perros favoritos
+
+function saveDogsFavouritesStoratge() {
+  const favourites = dogsArray.filter(function (dog) {
+    return dog.isLiked === true;
+  });
+  localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
+}
+
 //Mostrar los perros añadidos a local storage
 
 function loadPreviousDogs() {
-  const previousDogs = localStorage.getItem(DOGS_STORAGE_KEY)
-  if(previousDogs) {
-    dogsArray.push(...JSON.parse(previousDogs))
+  const previousDogs = localStorage.getItem(DOGS_STORAGE_KEY);
+  if (previousDogs) {
+    dogsArray.push(...JSON.parse(previousDogs));
   }
 }
 
-loadPreviousDogs()
-renderDogArray()
+loadPreviousDogs();
+renderDogArray();
 
 //Mostrar los perros que has guardado en favoritos en local storage
 
-function loadFavouriteDogs () {
-  const favouriteDogs = localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY)
+function loadFavouriteDogs() {
+  const favouriteDogs = localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY);
 
-  if(favouriteDogs) {
-    dogsArrayFavourites.push(...JSON.parse(favouriteDogs))
+  if (favouriteDogs) {
+    dogsArrayFavourites.push(...JSON.parse(favouriteDogs));
   }
 }
-
 
 // Card del perrito en la interfaz
 
@@ -440,11 +454,14 @@ function likeDog() {
         if (dog.isLiked === false) {
           dog.isLiked = true;
           dog.heart = heartFull;
-          localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY,(JSON.stringify(dogsArray)))
-          localStorage.setItem(DOGS_STORAGE_KEY,(JSON.stringify(dogsArray)))
+
+          saveDogsStoratge();
+          saveDogsFavouritesStoratge();
         } else {
           dog.isLiked = false;
           dog.heart = heartEmpty;
+          saveDogsStoratge();
+          saveDogsFavouritesStoratge();
         }
       }
       dogaddlike(dog);

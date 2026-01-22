@@ -15,6 +15,12 @@
   box-shadow: 0 2px 4px var(--green-06);
 }
 
+@media (width<400px) {
+  .button__add {
+    padding: 10px 16px;
+  }
+}
+
 .button__add:hover {
   background-color: var(--green-soft);
 }
@@ -227,7 +233,7 @@ header {
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
 
     max-height: 80vh;
-    overflow:hidden;
+    overflow: hidden;
     z-index: 100;
   }
 }

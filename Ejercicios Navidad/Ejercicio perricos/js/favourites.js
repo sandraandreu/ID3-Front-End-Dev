@@ -11,6 +11,12 @@ function renderFavouriteDogArray() {
   const favDogsStoratge = localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY);
   const favDogsStoratgeArray = JSON.parse(favDogsStoratge);
 
+  if (favDogsStoratgeArray.length == 0) {
+    addmessage.innerHTML = `<p>Aún no has añadido ningún perrito a favoritos.
+    Explora nuestro refugio y guarda a los que te roben el corazón.</p>
+    <a href="dogs.html" class="calltoaction">Empezar a explorar</a>`;
+  }
+  
   dogsArray.forEach(function (dog, index) {
     const passFav = dog.isLiked === true;
 
@@ -22,19 +28,13 @@ function renderFavouriteDogArray() {
           <img data-like=${index} class="buttonheart icon20px" src="${dog.heart}" alt="heart icon"> 
         </div>
         <span>Raza: <span class="capitalize">${dog.breed}</span></span>
-        <span>Etapa de vida: ${dog.age}</span>
+        <span>Edad: ${dog.age}</span>
         <span>Tamaño: ${dog.size}</span>
       </div>`;
 
       dogList.innerHTML += htmlAdd;
     }
   });
-
-  if (favDogsStoratgeArray.length == 0) {
-    addmessage.innerHTML = `<p>Aún no has añadido ningún perrito a favoritos.
-    Explora nuestro refugio y guarda a los que te roben el corazón.</p>
-    <a href="dogs.html" class="calltoaction">Empezar a explorar</a>`;
-  }
 
   likeDogFav();
 }

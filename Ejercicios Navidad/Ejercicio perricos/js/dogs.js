@@ -378,11 +378,14 @@ function saveDogsStoratge() {
 //Guardar en local storatge los perros favoritos
 
 function saveDogsFavouritesStoratge() {
+  localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, null);
   const favourites = dogsArray.filter(function (dog) {
     return dog.isLiked === true;
   });
   localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
 }
+
+saveDogsFavouritesStoratge()
 
 //Mostrar los perros añadidos a local storage
 
@@ -429,7 +432,7 @@ function renderDogArray() {
           <img data-like=${index} class="buttonheart icon20px" src="${dog.heart}" alt="heart icon"> 
         </div>
         <span>Raza: <span class="capitalize">${dog.breed}</span></span>
-        <span>Etapa de vida: ${dog.age}</span>
+        <span>Edad: ${dog.age}</span>
         <span>Tamaño: ${dog.size}</span>
       </div>`;
 

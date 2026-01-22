@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src=""></script>
+    <title>Perros en adopción - Contacto</title>
+    <link rel="stylesheet" href="../css/general.css" />
+    <link rel="stylesheet" href="../css/contact.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="logo"><span>logo en proceso</span><img src="" alt="" /></div>
+      <div class="menu">
+        <label class="menu__icon" for="f-toggle"
+          ><img class="icon24px" src="../img/menu.svg" alt=""
+        /></label>
+        <input type="checkbox" id="f-toggle" class="toggle" />
+        <div class="nav">
+          <div class="icon__close">
+            <label for="f-toggle"
+              ><img class="icon24px" src="../img/window-close.svg" alt=""
+            /></label>
+          </div>
+          <ul class="nav__list">
+            <li><a class="nav__item" href="dogs.html">Nuestros perros</a></li>
+            <li>
+              <a class="nav__item page__active" href="contact.html">Contacto</a>
+            </li>
+            <li>
+              <a class="nav__item" href="favourites.html">Tus favoritos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <main>
+      <header>
+        <div class="header__titleAndSubtitle">
+          <h1>Contacto</h1>
+          <p class="header__intro">
+            ¿Te interesa alguno de nuestros perros o tienes dudas sobre el
+            proceso de adopción? Escríbenos y cuéntanos un poco sobre ti.
+            Estaremos encantados de ayudarte y acompañarte en cada paso.
+          </p>
+        </div>
+      </header>
+
+      <form name="contact" method="post" action="/Enviar">
+        <div class="form__content">
+          <fieldset>
+            <legend>Datos personales</legend>
+
+            <div class="form__item">
+              <label for="nombre">Nombre completo</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                required = "true"
+                placeholder="Laura Martínez"
+              />
+            </div>
+
+            <div class="form__item">
+              <label for="email">Correo electrónico</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required = "true"
+                placeholder="tunombre@gmail.com"
+              />
+            </div>
+
+            <div class="form__item">
+              <label for="phone">Teléfono</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+34 657 843 264"
+              />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Sobre la adopción</legend>
+
+            <div class="form__item">
+              <label for="dog">Perro de interés</label>
+              <input
+                type="text"
+                id="dog"
+                name="dog"
+                placeholder="¿Por cuál de nuestros perros escribes?"
+              />
+            </div>
+
+            <div class="form__item">
+              <label for="message">Mensaje</label>
+              <textarea
+                name="message"
+                id="message"
+                rows="8"
+                required = "true"
+                placeholder="Cuéntanos por qué te interesa este perro o si tienes alguna duda. Estaremos encantados de leerte."
+              ></textarea>
+            </div>
+          </fieldset>
+        </div>
+
+        <button class="cta" type="submit">Enviar formulario</button>
+      </form>
+    </main>
+  </body>
+</html>

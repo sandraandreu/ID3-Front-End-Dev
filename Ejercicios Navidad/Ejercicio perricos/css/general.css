@@ -76,6 +76,12 @@ h1 {
   text-decoration: underline;
 }
 
+::placeholder {
+  color: var(--gray-medium);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
 /*Top bar*/
 
 .topbar {
@@ -222,30 +228,31 @@ h1 {
 
 /*Call to action*/
 
-.calltoaction {
+.cta {
   cursor: pointer;
   padding: 12px 24px;
   white-space: nowrap;
 
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
   color: var(--white-warm);
   text-decoration: none;
 
   background-color: var(--green);
+  border: 1.5px solid var(--green);
   border-radius: 16px;
   box-shadow: 0 2px 4px var(--green-06);
 }
 
-.calltoaction:hover {
+.cta:hover {
   background-color: var(--green-soft);
 }
 
-.calltoaction:active {
+.cta:active {
   transform: translateY(2px);
 }
 
-.calltoaction__secundary {
+.cta__secundary {
   cursor: pointer;
   padding: 12px 24px;
 
@@ -288,7 +295,7 @@ h1 {
 }
 
 .card {
-  max-width: 280px;
+  max-width: 320px;
   margin: 0;
   padding: 16px;
 

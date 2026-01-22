@@ -2,26 +2,30 @@
 
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 48px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
 .header__titleAndSubtitle {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 16px;
 }
 
 .header__intro {
   min-width: 250px;
-  max-width: 650px;
+  max-width: 600px;
 }
 
-@media(width<610px) {
+@media (width<460px) {
   header {
-  flex-direction: column;
-  gap: 16px;
-}
-
+    align-items: flex-start;
+  }
+  .header__titleAndSubtitle{
+    align-items: start;
+    text-align: start;
+  }
 }

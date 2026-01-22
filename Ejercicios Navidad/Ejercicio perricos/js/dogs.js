@@ -1,5 +1,4 @@
 //Cosas para ir implementando o corrigiendo:
-//VERSIÓN MOBILE
 //Página de contacto
 //Formulario
 //Poder ver detalles de cada perro
@@ -155,17 +154,17 @@ searcher();
 function toggleFilters() {
   const filterToggle = document.querySelector(".filter__toggle");
   const filterPanel = document.querySelector(".filter__panel");
-  const iconClose = document.querySelector(".filter__icon_close img")
+  const iconClose = document.querySelector(".filter__icon_close img");
 
   filterToggle.addEventListener("click", function () {
     filterPanel.classList.toggle("filter__panel__active");
     filterToggle.classList.toggle("filter__toggle__open");
   });
 
-  iconClose.addEventListener("click",function(){
-    filterPanel.classList.remove("filter__panel__active")
+  iconClose.addEventListener("click", function () {
+    filterPanel.classList.remove("filter__panel__active");
     filterToggle.classList.remove("filter__toggle__open");
-  })
+  });
 }
 
 toggleFilters();
@@ -377,15 +376,26 @@ function saveDogsStoratge() {
 
 //Guardar en local storatge los perros favoritos
 
-function saveDogsFavouritesStoratge() {
-  localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, null);
-  const favourites = dogsArray.filter(function (dog) {
-    return dog.isLiked === true;
-  });
-  localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
+function initDogsFavouritesStorage() {
+  if (!localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY)) {
+    localStorage.setItem(
+      DOGS_FAVOURITES_STORAGE_KEY,
+      JSON.stringify([])
+    );
+  }
 }
 
-saveDogsFavouritesStoratge()
+initDogsFavouritesStorage()
+
+function saveDogsFavouritesStoratge() {
+    const favourites = dogsArray.filter(function (dog) {
+      return dog.isLiked === true;
+    });
+    localStorage.setItem(
+      DOGS_FAVOURITES_STORAGE_KEY,
+      JSON.stringify(favourites),
+    );
+}
 
 //Mostrar los perros añadidos a local storage
 

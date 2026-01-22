@@ -80,7 +80,7 @@ button:disabled {
   height: 42.67px;
 }
 
-@media (width<768px) {
+@media (width<870px) {
   .filter {
     width: 100%;
   }
@@ -169,11 +169,7 @@ button:disabled {
 }
 
 input[type="text"]:focus {
-  outline-color: var(--gray-medium);
-}
-
-input[type="text"]::placeholder {
-  color: var(--gray-medium);
+  outline-color: var(--green);
 }
 
 .search__icon {
@@ -213,7 +209,7 @@ header {
   gap: 16px;
 }
 
-@media (width < 768px) {
+@media (width < 870px) {
   .filter__panel__active {
     display: flex;
     flex-direction: column;

@@ -11,13 +11,24 @@
   <body>
     <div class="topbar">
       <div class="logo"><span>logo en proceso</span><img src="" alt="" /></div>
-      <nav>
-        <ul class="nav">
-          <a class="page__active" href="dogs.html">Nuestros perros</a>
-          <a href="contact.html">Contacto</a>
-          <a href="favourites.html">Tus favoritos</a>
-        </ul>
-      </nav>
+      <div class="menu">
+        <label class="menu__icon" for="f-toggle"
+          ><img class="icon24px" src="../img/menu.svg" alt=""
+        /></label>
+        <input type="checkbox" id="f-toggle" class="toggle" />
+        <div class="nav">
+          <div class="icon__close">
+            <label for="f-toggle"
+              ><img class="icon24px" src="../img/window-close.svg" alt=""
+            /></label>
+          </div>
+          <ul class="nav__list">
+            <li><a class="nav__item page__active" href="dogs.html">Nuestros perros</a></li>
+            <li><a class="nav__item" href="contact.html">Contacto</a></li>
+            <li><a class="nav__item" href="favourites.html">Tus favoritos</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="messageinfo"></div>
 
@@ -56,6 +67,7 @@
             </div>
           </button>
           <div class="filter__panel">
+            <div class="filter__icon_close icon24px"><img src="../img/window-close-green.svg" alt=""></div>
             <div class="selectwrapper">
               <select
                 class="filter"

@@ -1,5 +1,5 @@
-//Cosas para ir implementando
-//Página de mis favoritos donde se veran los perros que hayas dado like con anterioridad
+//Cosas para ir implementando o corrigiendo:
+//VERSIÓN MOBILE
 //Página de contacto
 //Formulario
 //Poder ver detalles de cada perro
@@ -376,7 +376,6 @@ function saveDogsFavouritesStoratge() {
     return dog.isLiked === true;
   });
   localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
-  
 }
 
 //Mostrar los perros añadidos a local storage
@@ -390,7 +389,6 @@ function loadPreviousDogs() {
 
 loadPreviousDogs();
 renderDogArray();
-
 
 // Card del perrito en la interfaz
 
@@ -468,9 +466,6 @@ function likeDog() {
       }
       dogaddlike(dog);
       renderDogArray();
-
     });
   });
 }
-
-

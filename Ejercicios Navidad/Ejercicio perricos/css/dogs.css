@@ -1,4 +1,3 @@
-
 /*Buttons y filtros*/
 
 .button__add {
@@ -60,8 +59,9 @@ button:disabled {
 }
 
 .clean__filters {
-  color: var(--terracotta-soft);
-  border-color: var(--terracotta-soft);
+  color: var(--gray-medium);
+  background-color: var(--beige-light);
+  border-color: var(--beige-medium);
 }
 
 .filter {
@@ -74,6 +74,12 @@ button:disabled {
   height: 42.67px;
 }
 
+@media (width<768px) {
+  .filter {
+    width: 100%;
+  }
+}
+
 .filter:focus {
   outline-color: var(--terracotta-soft);
   color: var(--terracotta-soft);
@@ -81,9 +87,13 @@ button:disabled {
 }
 
 .filter__toggle:hover,
-.filter:hover,
-.clean__filters:hover {
+.filter:hover {
   background-color: var(--beige-light);
+}
+
+.filter__toggle__open:hover,
+.clean__filters:hover {
+  background-color: var(--beige-medium);
 }
 
 .filter__badge {
@@ -110,11 +120,22 @@ button:disabled {
   background-color: var(--green);
 }
 
+.filter__icon_close {
+  display: none;
+}
+
+@media (width<768px) {
+  .filter__icon_close {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
 /*Buscador*/
 
 .search {
   flex: 1;
-  min-width: 260px;
   max-width: 700px;
   display: flex;
   align-items: center;
@@ -124,9 +145,21 @@ button:disabled {
   align-self: flex-start;
   width: 100%;
   padding: 8px 12px;
-  background-color: var(--beige-medium);
-  border: none;
+  background-color: var(--beige-light);
+  border: 1.5px solid var(--beige-medium);
   border-radius: 8px;
+}
+
+@media (width<768px) {
+  .search {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .search__input {
+    width: 100%;
+  }
 }
 
 input[type="text"]:focus {
@@ -151,10 +184,8 @@ header {
 
 .header__principalinfo {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  gap: 24px;
+  align-items: start;
 }
 
 .buttons__add {
@@ -176,6 +207,31 @@ header {
   gap: 16px;
 }
 
+@media (width < 768px) {
+  .filter__panel__active {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 16px;
+
+    background-color: var(--white-warm);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+
+    max-height: 80vh;
+    overflow:hidden;
+    z-index: 100;
+  }
+}
+
 .filters {
   display: flex;
   gap: 16px;
@@ -191,4 +247,12 @@ header {
   top: 50%;
   transform: translateY(-60%);
   pointer-events: none;
+}
+
+@media (width<768px) {
+  .header__principalinfo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 }

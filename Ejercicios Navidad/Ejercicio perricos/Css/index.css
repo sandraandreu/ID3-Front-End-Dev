@@ -15,11 +15,17 @@ h1 {
   font-size: 48px;
 }
 
+@media (width < 800px) {
+  h1 {
+    font-size: 32px;
+  }
+}
+
 /*Header*/
 
 header {
   height: 100vh;
-  padding: 16px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,4 +44,23 @@ header {
 .header__subtitle {
   font-size: 20px;
   font-weight: normal;
+}
+
+@media (width < 768px) {
+  header {
+    gap: 16px;
+  }
+  .header__titleAndSubtitle {
+    gap: 8px;
+  }
+  .header__subtitle {
+    font-size: 16px;
+  }
+}
+
+@media (width < 460px) {
+  header {
+    align-items:flex-start;
+    text-align:start;
+  }
 }

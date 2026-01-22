@@ -50,6 +50,18 @@ main {
   flex-direction: column;
   gap: 48px;
 }
+@media (width<768px) {
+  main {
+    padding: 80px 32px 80px 32px;
+    gap: 32px;
+  }
+}
+@media (width<460px) {
+  main {
+    padding: 80px 16px 80px 16px;
+    gap: 32px;
+  }
+}
 
 h1 {
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -83,7 +95,19 @@ h1 {
   box-shadow: 0 2px 3px var(--beige-medium);
 }
 
-.nav {
+.topbar__index {
+  background: none;
+  box-shadow: 0 2px 3px var(--gray-medium);
+}
+
+.menu__icon,
+.toggle,
+.icon__close {
+  display: none;
+}
+
+.nav__list {
+  list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
@@ -91,11 +115,82 @@ h1 {
   gap: 32px;
 }
 
-nav a {
+.nav__item {
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
   color: var(--green);
+}
+
+.page__active {
+  text-decoration: underline;
+}
+
+@media (width < 768px) {
+  .page__active {
+    text-decoration: none;
+  }
+
+  .menu__icon {
+    display: block;
+  }
+
+  .menu__icon .icon24px {
+    width: 32px;
+    height: 32px;
+  }
+
+  .toggle + .nav {
+    display: none;
+  }
+
+  .toggle:checked + .nav {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    padding: 16px 32px;
+
+    background-color: var(--green);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon__close {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .nav__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav__item {
+    text-decoration: none;
+    color: #fefaf6;
+    font-size: 16px;
+    font-weight: 500;
+
+    padding: 8px 12px;
+    border-radius: 8px;
+
+    display: block;
+  }
 }
 
 /*Icons*/
@@ -185,14 +280,14 @@ nav a {
 
 .dogCards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
 
 .card {
+  max-width: 250px;
   margin: 0;
   padding: 16px;
-  max-width: 260px;
 
   display: flex;
   flex-direction: column;
@@ -204,6 +299,12 @@ nav a {
   box-shadow: 0 2px 3px var(--beige-medium);
   border-radius: 12px;
   transition: transform 0.2s ease;
+}
+
+@media (width<460px) {
+  .card{
+    max-width: 370px;
+  }
 }
 
 .card:hover {
@@ -233,3 +334,7 @@ nav a {
   object-fit: cover;
   object-position: center;
 }
+
+
+
+

@@ -127,6 +127,10 @@ h1 {
 }
 
 @media (width < 768px) {
+  .topbar {
+    padding: 16px;
+  }
+
   .page__active {
     text-decoration: none;
   }
@@ -302,7 +306,7 @@ h1 {
 }
 
 @media (width<460px) {
-  .card{
+  .card {
     max-width: 370px;
   }
 }
@@ -334,7 +338,3 @@ h1 {
   object-fit: cover;
   object-position: center;
 }
-
-
-
-

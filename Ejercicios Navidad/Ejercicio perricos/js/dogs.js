@@ -155,11 +155,17 @@ searcher();
 function toggleFilters() {
   const filterToggle = document.querySelector(".filter__toggle");
   const filterPanel = document.querySelector(".filter__panel");
+  const iconClose = document.querySelector(".filter__icon_close img")
 
   filterToggle.addEventListener("click", function () {
     filterPanel.classList.toggle("filter__panel__active");
     filterToggle.classList.toggle("filter__toggle__open");
   });
+
+  iconClose.addEventListener("click",function(){
+    filterPanel.classList.remove("filter__panel__active")
+    filterToggle.classList.remove("filter__toggle__open");
+  })
 }
 
 toggleFilters();

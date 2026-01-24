@@ -1,10 +1,5 @@
 //Cosas para ir implementando o corrigiendo:
-//Página de contacto
-//Formulario
 //Poder ver detalles de cada perro
-//Descripción
-//Características de su personalidad
-//Boton para contactar
 //Desplegable para busquedas que coincidan
 //Guardar en local storatge los filtros aplicados
 

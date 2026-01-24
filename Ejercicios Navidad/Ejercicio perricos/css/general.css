@@ -44,7 +44,7 @@ body {
 main {
   position: relative;
   height: 100%;
-  padding: 72px 32px 72px 32px;
+  padding: 56px 32px 56px 32px;
 
   display: flex;
   flex-direction: column;
@@ -110,6 +110,12 @@ h1 {
 .toggle,
 .icon__close {
   display: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .nav__list {
@@ -284,6 +290,74 @@ h1 {
 
   text-align: center;
   color: var(--terracotta-soft);
+}
+
+/*Forms*/ /*Form*/
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.form__content {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form__content fieldset {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  color: var(--green);
+
+  border: 1.5px solid var(--green);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--green-soft);
+  background-color: var(--white-warm);
+}
+
+.form__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: var(--gray-dark);
+}
+
+.form__item input,
+.form__item textarea {
+  padding: 8px;
+  border: 1.5px solid var(--beige-medium);
+  border-radius: 8px;
+  background-color: var(--beige-light);
+  box-shadow: 0 2px 4px var(--beige-medium);
+}
+
+.form__item input:focus,
+.form__item textarea:focus {
+  outline-color: var(--green);
+}
+
+label:has(+ input[required="true"]):after,
+label:has(+ textarea[required="true"]):after {
+  content: "*";
+  color: var(--red-soft);
+}
+
+@media (width<460px) {
+  form[name="contact"] {
+    align-items: flex-start;
+  }
+  .form__content {
+    max-width: none;
+  }
 }
 
 /*Cards*/

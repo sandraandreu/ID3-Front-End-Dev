@@ -1,0 +1,9 @@
+.login__page {
+  padding-bottom: 0px;
+}
+
+form[name="login"] {
+  min-height: calc(100vh - 72px);
+  width: 100%;
+  justify-content: center;
+}

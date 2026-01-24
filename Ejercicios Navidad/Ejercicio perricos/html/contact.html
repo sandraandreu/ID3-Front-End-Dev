@@ -32,9 +32,10 @@
             </li>
           </ul>
         </div>
+        <div class="icon__account icon24px"><a href="login.html"><img src="../img/account-circle.svg" alt="account icon"></a></div>
       </div>
     </div>
-    <main>
+    <main class="contact__page">
       <header>
         <div class="header__titleAndSubtitle">
           <h1>Contacto</h1>
@@ -46,18 +47,18 @@
         </div>
       </header>
 
-      <form name="contact" method="post" action="/Enviar">
+      <form name="contact" method="post">
         <div class="form__content">
           <fieldset>
             <legend>Datos personales</legend>
 
             <div class="form__item">
-              <label for="nombre">Nombre completo</label>
+              <label for="name">Nombre completo</label>
               <input
                 type="text"
-                id="nombre"
-                name="nombre"
-                required = "true"
+                id="name"
+                name="name"
+                required="true"
                 placeholder="Laura Martínez"
               />
             </div>
@@ -68,7 +69,7 @@
                 type="email"
                 id="email"
                 name="email"
-                required = "true"
+                required="true"
                 placeholder="tunombre@gmail.com"
               />
             </div>
@@ -103,15 +104,26 @@
                 name="message"
                 id="message"
                 rows="8"
-                required = "true"
+                required="true"
                 placeholder="Cuéntanos por qué te interesa este perro o si tienes alguna duda. Estaremos encantados de leerte."
               ></textarea>
             </div>
           </fieldset>
         </div>
 
-        <button class="cta" type="submit">Enviar formulario</button>
+        <button class="cta submit">Enviar formulario</button>
       </form>
+
+      <div class="message__form" hidden>
+        <div class="message__contact__text">
+          <p><strong>¡Mensaje enviado con éxito!</strong></p>
+          <p>
+            Gracias por ponerte en contacto con nosotros. Hemos recibido tu
+            mensaje y el refugio se pondrá en contacto contigo pronto.
+          </p>
+        </div>
+      </div>
     </main>
   </body>
+  <script src="../js/contact.js"></script>
 </html>

@@ -140,6 +140,8 @@ button:disabled {
 
 /*Buscador*/
 
+/*Buscador*/
+
 .search {
   flex: 1;
   max-width: 700px;
@@ -169,12 +171,18 @@ button:disabled {
 }
 
 input[type="text"]:focus {
+  outline-color: var(--gray-medium);
+}
+
+input[type="text"]::placeholder {
+  color: var(--gray-medium);
   outline-color: var(--green);
 }
 
 .search__icon {
   transform: translateX(-32px);
 }
+
 
 /*Header containers y otros*/
 

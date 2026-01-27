@@ -2,8 +2,13 @@
   padding-bottom: 0px;
 }
 
-form[name="login"] {
+form[name="login"] ,form[name="signUp"]{
   min-height: calc(100vh - 72px);
   width: 100%;
   justify-content: center;
+}
+
+.warning{
+  font-size: 14px;
+  color: var(--red-soft);
 }

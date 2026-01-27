@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Auth Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .auth-container { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        input { display: block; margin-bottom: 10px; padding: 8px; width: 200px; }
+        button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px; }
+        button:hover { background-color: #45a049; }
+        #google-signin-btn { background-color: #DB4437; }
+        #google-signin-btn:hover { background-color: #c43b2f; }
+        #signout-btn { background-color: #f44336; }
+        #signout-btn:hover { background-color: #da190b; }
+        #user-status { margin-top: 20px; padding: 15px; border: 1px dashed #007bff; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Firebase Authentication Testing</h1>
+
+    <div class="auth-container">
+        <h2>Email/Password Login & Registration</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="email-signin-btn">Sign In</button>
+        <button id="email-signup-btn">Sign Up</button> <!-- Este botón es para el registro -->
+    </div>
+
+    <div class="auth-container">
+        <h2>Google Login</h2>
+        <button id="google-signin-btn">Sign In with Google</button>
+    </div>
+
+    <div class="auth-container">
+        <h2>User Actions</h2>
+        <button id="signout-btn" style="display: none;">Sign Out</button>
+    </div>
+
+    <div id="user-status">
+        <p>Current User: <span id="current-user">None</span></p>
+        <p id="error-message" style="color: red;"></p>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+        // getAnalytics is not strictly needed for auth, but keeping it as you had it
+        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        // const analytics = getAnalytics(app); // Uncomment if you need Analytics
+
+        // Get DOM elements
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailSignInBtn = document.getElementById('email-signin-btn');
+        const emailSignUpBtn = document.getElementById('email-signup-btn'); // Referencia al botón de registro
+        const googleSignInBtn = document.getElementById('google-signin-btn');
+        const signOutBtn = document.getElementById('signout-btn');
+        const currentUserSpan = document.getElementById('current-user');
+        const errorMessageDiv = document.getElementById('error-message');
+
+        // --- Authentication Functions ---
+
+        // Email/Password Sign In
+        emailSignInBtn.addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            errorMessageDiv.textContent = ''; // Clear previous errors
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log('User signed in with email:', userCredential.user.email);
+            } catch (error) {
+                console.error('Email sign in error:', error.message);
+                errorMessageDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        // Email/Password Sign Up (Registro)
+        emailSignUpBtn.addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            errorMessageDiv.textContent = ''; // Limpiar errores previos
+            try {
+                // Función de Firebase para crear un nuevo usuario con email y contraseña
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('User signed up with email:', userCredential.user.email);
+                alert(`¡Usuario ${userCredential.user.email} registrado y logeado exitosamente!`);
+            } catch (error) {
+                console.error('Email sign up error:', error.message);
+                errorMessageDiv.textContent = `Error de registro: ${error.message}`;
+            }
+        });
+
+        // Google Sign In
+        googleSignInBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            errorMessageDiv.textContent = ''; // Clear previous errors
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                console.log('User signed in with Google:', user.displayName, user.email);
+            } catch (error) {
+                console.error('Google sign in error:', error.message);
+                errorMessageDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        // Sign Out
+        signOutBtn.addEventListener('click', async () => {
+            errorMessageDiv.textContent = ''; // Clear previous errors
+            try {
+                await signOut(auth);
+                console.log('User signed out');
+            } catch (error) {
+                console.error('Sign out error:', error.message);
+                errorMessageDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        // --- Auth State Observer ---
+        // This listens for changes in the user's sign-in state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                currentUserSpan.textContent = user.email || user.displayName || "Unknown User";
+                signOutBtn.style.display = 'block';
+                emailInput.value = '';
+                passwordInput.value = '';
+                errorMessageDiv.textContent = '';
+            } else {
+                // User is signed out
+                currentUserSpan.textContent = 'None';
+                signOutBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

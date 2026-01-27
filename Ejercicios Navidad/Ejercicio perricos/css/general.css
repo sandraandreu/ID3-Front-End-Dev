@@ -44,7 +44,7 @@ body {
 main {
   position: relative;
   height: 100%;
-  padding: 56px 32px 56px 32px;
+  padding: 72px 32px 72px 32px;
 
   display: flex;
   flex-direction: column;
@@ -292,9 +292,49 @@ h1 {
   color: var(--terracotta-soft);
 }
 
-/*Forms*/ /*Form*/
+.message__form {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
 
-form {
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--white-warm);
+}
+
+.message__form:not([hidden]) {
+  display: flex;
+}
+
+.message__form[hidden] {
+  display: none;
+}
+
+.message__text{
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: var(--white-warm);
+
+  border: 1.5px solid var(--green);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--green-soft);
+  background-color: var(--green);
+}
+
+.message__error {
+color: var(--red-soft);
+}
+
+/*Forms*/
+
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -307,6 +347,14 @@ form {
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+.form__signIn:not([hidden]) ,.form__signUp:not([hidden]) {
+  display: flex;
+}
+
+.form__signIn[hidden] , .form__signUp[hidden] {
+  display: none;
 }
 
 .form__content fieldset {

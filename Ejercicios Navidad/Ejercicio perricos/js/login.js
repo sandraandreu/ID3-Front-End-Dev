@@ -13,6 +13,9 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateProfile,
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -37,6 +40,10 @@ const auth = getAuth(app);
 
 const signIn = document.querySelector('form[name="login"]');
 const signUp = document.querySelector('form[name="signUp"]');
+const signOutIcon = document.querySelector(".signout__icon");
+const accountIcon = document.querySelector(".account__icon");
+const accountText = document.querySelector(".account__text");
+const currentUser = document.querySelector(".current__user");
 const signInBtn = document.querySelector(".btn_signIn");
 const signUpBtn = document.querySelector(".btn_signUp");
 const messagePassSignIn = document.querySelector(".message__form.passSignIn");
@@ -46,6 +53,7 @@ const messageErrorSignUp = document.querySelector(".message__error__signUp");
 const inputEmailSignIn = document.querySelector("#email-signIn");
 const inputPasswordSignIn = document.querySelector("#password-signIn");
 const inputEmailSignUp = document.querySelector("#email-signUp");
+const inputUserNameSignUp = document.querySelector("#userName-signUp");
 const inputPasswordSignUp = document.querySelector("#password-signUp");
 const inputRepeatPassword = document.querySelector("#repeat-password-signUp");
 
@@ -56,8 +64,8 @@ signIn.hidden = false;
 // Email/Password Sign In
 signInBtn.addEventListener("click", async (event) => {
   event.preventDefault();
-  const password = inputPasswordSignIn.value;
-  const email = inputEmailSignIn.value;
+  const password = inputPasswordSignIn.value.trim();
+  const email = inputEmailSignIn.value.trim();
 
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -70,6 +78,16 @@ signInBtn.addEventListener("click", async (event) => {
   } catch (error) {
     messageErrorSignIn.hidden = false;
     console.error("Email sign in error:", error.message);
+  }
+});
+
+// Sign Out
+signOutIcon.addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    console.log("User signed out");
+  } catch (error) {
+    console.error("Sign out error:", error.message);
   }
 });
 
@@ -88,11 +106,13 @@ signUp.addEventListener("submit", async (event) => {
   const password = inputPasswordSignUp.value;
   const repeatPassword = inputRepeatPassword.value;
   const email = inputEmailSignUp.value;
+  const userName = inputUserNameSignUp.value;
 
   if (password !== repeatPassword) {
     messageErrorSignUp.hidden = false;
     return;
   }
+
   try {
     // Función de Firebase para crear un nuevo usuario con email y contraseña
     const userCredential = await createUserWithEmailAndPassword(
@@ -104,6 +124,37 @@ signUp.addEventListener("submit", async (event) => {
     console.log("User signed up with email:", userCredential.user.email);
   } catch (error) {
     messageErrorSignUp.hidden = false;
+    inputEmailSignUp.value = "";
+    inputPasswordSignUp.value = "";
+    inputRepeatPassword.value = "";
     console.error("Email sign up error:", error.message);
+  }
+
+  await updateProfile(auth.currentUser, {
+    displayName: userName,
+  })
+    .then(() => {
+      console.log("Username:",userName)
+    })
+    .catch((error) => {
+      console.error("Email sign up error:", error.message);
+    });
+});
+
+// --- Auth State Observer ---
+// This listens for changes in the user's sign-in state
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in
+    currentUser.style.display = "block";
+    accountText.style.display = "none";
+    currentUser.innerHTML = `<span id="current__user">Hola, ${user.displayName}</span>`;
+
+    inputEmailSignIn.value = "";
+    inputPasswordSignIn.value = "";
+  } else {
+    // User is signed out
+    currentUser.style.display = "none";
+    accountText.style.display = "block";
   }
 });

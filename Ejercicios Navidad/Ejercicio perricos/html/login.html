@@ -32,10 +32,25 @@
             </li>
           </ul>
         </div>
-        <div class="icon__account icon24px">
-          <a href="login.html"
-            ><img src="../img/account-circle.svg" alt="account icon"
-          /></a>
+        <div class="account">
+          <div class="current__user"></div>
+          <a class="account__text" href="login.html">Iniciar sesión</a>
+          <div class="account__icon">
+            <a href="login.html"
+              ><img
+                class="icon24px"
+                src="../img/account-circle.svg"
+                alt="account icon"
+            /></a>
+          </div>
+          <div class="signout__icon">
+            <a href="login.html"
+              ><img
+                class="icon24px"
+                src="../img/logout.svg"
+                alt="sign out icon"
+            /></a>
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +88,9 @@
             </div>
 
             <button class="cta btn_signIn">Iniciar sesión</button>
-            <button type="button" class="cta__secundary btn_signUp">Registrarse</button>
+            <button type="button" class="cta__secundary btn_signUp">
+              Registrarse
+            </button>
           </fieldset>
         </div>
       </form>
@@ -81,6 +98,15 @@
         <div class="form__content">
           <fieldset>
             <legend>Registro</legend>
+            <div class="form__item">
+              <label for="userName-signUp">Nombre de usuario</label>
+              <input
+                type="text"
+                id="userName-signUp"
+                name="userName-signUp"
+                required="true"
+              />
+            </div>
 
             <div class="form__item">
               <label for="email-signUp">Email</label>
@@ -111,7 +137,9 @@
                 required="true"
               />
             </div>
-            <span class="warning">La contraseña debe contener mínimo 6 carácteres</span>
+            <span class="warning"
+              >La contraseña debe contener mínimo 6 carácteres</span
+            >
 
             <div class="message__error__signUp" hidden>
               <p>

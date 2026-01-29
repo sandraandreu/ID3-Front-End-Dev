@@ -108,14 +108,16 @@ h1 {
 
 .menu__icon,
 .toggle,
-.icon__close {
+.icon__close,
+.icon__signout,
+.currentUser {
   display: none;
 }
 
 .menu {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 32px;
 }
 
 .nav__list {
@@ -124,7 +126,7 @@ h1 {
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
 }
 
 .nav__item {
@@ -132,6 +134,22 @@ h1 {
   text-transform: uppercase;
   font-size: 16px;
   color: var(--green);
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.account__text {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.current__user {
+  display: flex;
+  color: var(--terracotta-soft);
 }
 
 .page__active {
@@ -145,6 +163,11 @@ h1 {
 
   .page__active {
     text-decoration: none;
+  }
+
+  .menu {
+    flex-direction: row-reverse;
+    gap: 16px;
   }
 
   .menu__icon {
@@ -207,6 +230,10 @@ h1 {
 
     display: block;
   }
+
+  .account__text {
+    display: none;
+  }
 }
 
 /*Icons*/
@@ -216,6 +243,13 @@ h1 {
   height: 24px;
   display: block;
   flex-shrink: 0;
+}
+
+@media (width<760px) {
+  .icon24px {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon20px {
@@ -311,7 +345,7 @@ h1 {
   display: none;
 }
 
-.message__text{
+.message__text {
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
@@ -329,7 +363,7 @@ h1 {
 }
 
 .message__error {
-color: var(--red-soft);
+  color: var(--red-soft);
 }
 
 /*Forms*/
@@ -349,11 +383,13 @@ color: var(--red-soft);
   gap: 32px;
 }
 
-.form__signIn:not([hidden]) ,.form__signUp:not([hidden]) {
+.form__signIn:not([hidden]),
+.form__signUp:not([hidden]) {
   display: flex;
 }
 
-.form__signIn[hidden] , .form__signUp[hidden] {
+.form__signIn[hidden],
+.form__signUp[hidden] {
   display: none;
 }
 

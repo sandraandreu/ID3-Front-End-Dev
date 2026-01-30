@@ -1,7 +1,6 @@
-//Cosas para ir implementando o corrigiendo:
-//Poder ver detalles de cada perro
-//Desplegable para busquedas que coincidan
-//Guardar en local storatge los filtros aplicados
+import "./auth_observer.js";
+import { getRandomDogImage, getListAllBreeds } from "./api.js";
+import { auth } from "./auth_observer.js";
 
 const dogsArray = [];
 let filterBreedsActive = "Todas las razas";
@@ -10,8 +9,8 @@ let filterSizeActive = "Todos los tamaños";
 let breeds;
 let search = "";
 
-const DOGS_STORAGE_KEY = "Perros añadidos anteriormente:";
-const DOGS_FAVOURITES_STORAGE_KEY = "Perros favoritos:";
+const DOGS_STORAGE_KEY = `Perros añadidos:`;
+let DOGS_FAVOURITES_STORAGE_KEY = "";
 
 const heartFull = "../img/heart.svg";
 const heartEmpty = "../img/heart-outline.svg";
@@ -125,7 +124,7 @@ function randomDogName() {
 
 // Dar una raza aleatoria
 
-function randomDogBreed() {
+export function randomDogBreed() {
   breeds.unshift("Todas las razas");
   const randomIndex = Math.floor(Math.random() * breeds.length);
   return breeds[randomIndex];
@@ -371,26 +370,13 @@ function saveDogsStoratge() {
 
 //Guardar en local storatge los perros favoritos
 
-function initDogsFavouritesStorage() {
-  if (!localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY)) {
-    localStorage.setItem(
-      DOGS_FAVOURITES_STORAGE_KEY,
-      JSON.stringify([])
-    );
-  }
-}
-
-initDogsFavouritesStorage()
-
 function saveDogsFavouritesStoratge() {
-    const favourites = dogsArray.filter(function (dog) {
-      return dog.isLiked === true;
-    });
-    localStorage.setItem(
-      DOGS_FAVOURITES_STORAGE_KEY,
-      JSON.stringify(favourites),
-    );
+  const favourites = dogsArray.filter(function (dog) {
+    return dog.isLiked === true;
+  });
+  localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
 }
+
 
 //Mostrar los perros añadidos a local storage
 
@@ -458,28 +444,35 @@ function renderDogArray() {
 
 function likeDog() {
   const likeButton = document.querySelectorAll(".buttonheart");
+  const messageLogin = document.querySelector(".message__login");
 
   likeButton.forEach(function (button) {
     button.addEventListener("click", function () {
       const idButtonClicked = Number(button.getAttribute("data-like"));
       const dog = dogsArray[idButtonClicked];
 
-      function dogaddlike(dog) {
-        if (dog.isLiked === false) {
-          dog.isLiked = true;
-          dog.heart = heartFull;
+      if (!auth.currentUser) {
+        messageLogin.hidden = false;
+      } else {
+        DOGS_FAVOURITES_STORAGE_KEY = `Perros favoritos -- ${auth.currentUser.uid}:`;
+        messageLogin.hidden = true;
+        function dogaddlike(dog) {
+          if (dog.isLiked === false) {
+            dog.isLiked = true;
+            dog.heart = heartFull;
 
-          saveDogsStoratge();
-          saveDogsFavouritesStoratge();
-        } else {
-          dog.isLiked = false;
-          dog.heart = heartEmpty;
-          saveDogsStoratge();
-          saveDogsFavouritesStoratge();
+            saveDogsStoratge();
+            saveDogsFavouritesStoratge();
+          } else {
+            dog.isLiked = false;
+            dog.heart = heartEmpty;
+            saveDogsStoratge();
+            saveDogsFavouritesStoratge();
+          }
         }
+        dogaddlike(dog);
+        renderDogArray();
       }
-      dogaddlike(dog);
-      renderDogArray();
     });
   });
 }

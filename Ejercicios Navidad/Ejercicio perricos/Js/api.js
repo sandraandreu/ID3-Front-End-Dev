@@ -1,4 +1,6 @@
-async function getRandomDogImage() {
+import { randomDogBreed } from "./general.js";
+
+export async function getRandomDogImage() {
   const url = `https://dog.ceo/api/breed/${randomDogBreed()}/images/random`;
   try {
     const response = await fetch(url);
@@ -14,7 +16,7 @@ async function getRandomDogImage() {
   }
 }
 
-async function getListAllBreeds() {
+export async function getListAllBreeds() {
   const url = "https://dog.ceo/api/breeds/list/all";
   try {
     const response = await fetch(url);

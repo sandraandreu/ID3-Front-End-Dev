@@ -1,4 +1,5 @@
 //Mostrar en la interfaz los perros guardados en favoritos
+import "./general.js";
 
 loadPreviousDogs();
 
@@ -8,7 +9,7 @@ function renderFavouriteDogArray() {
   addmessage.innerHTML = "";
   dogList.innerHTML = "";
 
-  const favDogsStoratge = localStorage.getItem(DOGS_FAVOURITES_STORAGE_KEY);
+  const favDogsStoratge = localStorage.getItem(`Perros favoritos -- ${auth.currentUser.uid}:`);
   const favDogsStoratgeArray = JSON.parse(favDogsStoratge);
 
   dogsArray.forEach(function (dog, index) {
@@ -33,7 +34,7 @@ function renderFavouriteDogArray() {
   if (favDogsStoratgeArray.length == 0) {
       addmessage.innerHTML = `<p>Aún no has añadido ningún perrito a favoritos.
     Explora nuestro refugio y guarda a los que te roben el corazón.</p>
-    <a href="dogs.html" class="calltoaction">Empezar a explorar</a>`;
+    <a href="dogs.html" class="cta">Empezar a explorar</a>`;
     }
 
   likeDogFav();

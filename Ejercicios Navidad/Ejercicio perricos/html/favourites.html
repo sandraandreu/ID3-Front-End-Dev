@@ -24,7 +24,9 @@
           </div>
           <ul class="nav__list">
             <li><a class="nav__item" href="dogs.html">Nuestros perros</a></li>
-            <li><a class="nav__item" href="contact.html">Contacto</a></li>
+            <li>
+              <a class="nav__item" href="contact.html">Contacto</a>
+            </li>
             <li>
               <a class="nav__item page__active" href="favourites.html"
                 >Tus favoritos</a
@@ -32,7 +34,21 @@
             </li>
           </ul>
         </div>
-        <div class="icon__account icon24px"><a href="login.html"><img src="../img/account-circle.svg" alt="account icon"></a></div>
+        <div class="account">
+          <div class="current__user"></div>
+          <a class="account__text" href="login.html">Iniciar sesión</a>
+          <div class="account__icon">
+            <a href="login.html"
+              ><img
+                class="icon24px"
+                src="../img/account-circle.svg"
+                alt="account icon"
+            /></a>
+          </div>
+          <div class="signout__icon">
+            <img class="icon24px" src="../img/logout.svg" alt="sign out icon" />
+          </div>
+        </div>
       </div>
     </div>
     <div class="messageinfo"></div>
@@ -52,6 +68,5 @@
       <div class="dogCards" id="favourite-dogs-list"></div>
     </main>
   </body>
-  <script src="../js/dogs.js"></script>
-  <script src="../js/favourites.js"></script>
+  <script type="module" src="../js/favourites.js"></script>
 </html>

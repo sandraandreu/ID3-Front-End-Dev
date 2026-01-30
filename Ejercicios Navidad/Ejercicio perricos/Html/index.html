@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/index.css" />
   </head>
   <body>
-    <div class="topbar topbar__index">
+    <div class="topbar">
       <div class="logo"><span>logo en proceso</span><img src="" alt="" /></div>
       <div class="menu">
         <label class="menu__icon" for="f-toggle"
@@ -23,20 +23,43 @@
             /></label>
           </div>
           <ul class="nav__list">
-            <li><a class="nav__item page__active" href="dogs.html">Nuestros perros</a></li>
-            <li><a class="nav__item" href="contact.html">Contacto</a></li>
-            <li><a class="nav__item" href="favourites.html">Tus favoritos</a></li>
+            <li><a class="nav__item" href="dogs.html">Nuestros perros</a></li>
+            <li>
+              <a class="nav__item" href="contact.html">Contacto</a>
+            </li>
+            <li>
+              <a class="nav__item" href="favourites.html">Tus favoritos</a>
+            </li>
           </ul>
         </div>
-        <div class="icon__account icon24px"><a href="login.html"><img src="../img/account-circle.svg" alt="account icon"></a></div>
+        <div class="account">
+          <div class="current__user"></div>
+          <a class="account__text" href="login.html">Iniciar sesión</a>
+          <div class="account__icon">
+            <a href="login.html"
+              ><img
+                class="icon24px"
+                src="../img/account-circle.svg"
+                alt="account icon"
+            /></a>
+          </div>
+          <div class="signout__icon">
+            <img class="icon24px" src="../img/logout.svg" alt="sign out icon" />
+          </div>
+        </div>
       </div>
     </div>
     <header>
       <div class="header__titleAndSubtitle">
         <h1>Conoce a los perros del refugio</h1>
-        <p class="header__subtitle">Descubre sus perfiles, filtra por lo que buscas y guarda tus favoritos.</p>
+        <p class="header__subtitle">
+          Descubre sus perfiles, filtra por lo que buscas y guarda tus
+          favoritos.
+        </p>
       </div>
-      <a href="dogs.html" class="cta">Empezar a explorar</a>
+      <a href="general.html" class="cta">Empezar a explorar</a>
     </header>
   </body>
+  <script type="module" src="../js/auth_observer.js"></script>
+  <script type="module" src="../js/login.js"></script>
 </html>

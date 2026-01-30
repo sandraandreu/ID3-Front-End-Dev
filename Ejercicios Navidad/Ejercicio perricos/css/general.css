@@ -288,7 +288,7 @@ h1 {
   background-color: var(--green-soft);
 }
 
-.cta:active {
+.cta:active, .cta__secundary:active {
   transform: translateY(2px);
 }
 
@@ -305,6 +305,10 @@ h1 {
   border: 1.5px solid var(--green);
   border-radius: 16px;
   box-shadow: 0 2px 4px var(--green-06);
+}
+
+.cta__secundary:hover {
+  background-color: var(--beige-medium);
 }
 
 /*Message*/
@@ -326,7 +330,7 @@ h1 {
   color: var(--terracotta-soft);
 }
 
-.message__form {
+.message__form,.message__login {
   position: fixed;
   inset: 0;
   z-index: 9;
@@ -337,11 +341,15 @@ h1 {
   background-color: var(--white-warm);
 }
 
-.message__form:not([hidden]) {
+.message__login {
+background-color: none;
+}
+
+.message__form:not([hidden]),.message__login:not([hidden]) {
   display: flex;
 }
 
-.message__form[hidden] {
+.message__form[hidden],.message__login[hidden] {
   display: none;
 }
 

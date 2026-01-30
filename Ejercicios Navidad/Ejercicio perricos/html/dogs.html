@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../js/api.js"></script>
+    <script type="module" src="../js/api.js"></script>
     <title>Perros en adopción</title>
     <link rel="stylesheet" href="../css/general.css" />
     <link rel="stylesheet" href="../css/dogs.css" />
@@ -23,12 +23,34 @@
             /></label>
           </div>
           <ul class="nav__list">
-            <li><a class="nav__item page__active" href="dogs.html">Nuestros perros</a></li>
-            <li><a class="nav__item" href="contact.html">Contacto</a></li>
-            <li><a class="nav__item" href="favourites.html">Tus favoritos</a></li>
+            <li>
+              <a class="nav__item page__active" href="dogs.html"
+                >Nuestros perros</a
+              >
+            </li>
+            <li>
+              <a class="nav__item" href="contact.html">Contacto</a>
+            </li>
+            <li>
+              <a class="nav__item" href="favourites.html">Tus favoritos</a>
+            </li>
           </ul>
         </div>
-        <div class="icon__account icon24px"><a href="login.html"><img src="../img/account-circle.svg" alt="account icon"></a></div>
+        <div class="account">
+          <div class="current__user"></div>
+          <a class="account__text" href="login.html">Iniciar sesión</a>
+          <div class="account__icon">
+            <a href="login.html"
+              ><img
+                class="icon24px"
+                src="../img/account-circle.svg"
+                alt="account icon"
+            /></a>
+          </div>
+          <div class="signout__icon">
+            <img class="icon24px" src="../img/logout.svg" alt="sign out icon" />
+          </div>
+        </div>
       </div>
     </div>
     <div class="messageinfo"></div>
@@ -68,7 +90,9 @@
             </div>
           </button>
           <div class="filter__panel">
-            <div class="filter__icon_close icon24px"><img src="../img/window-close-green.svg" alt="icon close"></div>
+            <div class="filter__icon_close icon24px">
+              <img src="../img/window-close-green.svg" alt="icon close" />
+            </div>
             <div class="selectwrapper">
               <select
                 class="filter"
@@ -103,7 +127,18 @@
       </header>
 
       <div class="dogCards" id="dog-list"></div>
+      <div class="message__login" hidden>
+        <div class="message__text">
+          <p>
+            Inicia sesión para añadir a este perro a tu lista de favoritos y
+            ayudarle a encontrar hogar
+          </p>
+          <a href="login.html"
+            ><button class="cta__secundary">Iniciar sesión</button></a
+          >
+        </div>
+      </div>
     </main>
   </body>
-  <script src="../js/dogs.js"></script>
+  <script type="module" src="../js/general.js"></script>
 </html>

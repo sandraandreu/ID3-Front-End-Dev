@@ -158,7 +158,7 @@ input[type="text"]::placeholder {
 
 /*Header containers y otros*/
 
-header {
+.header__exploreDogs {
   display: flex;
   flex-direction: column;
   gap: 16px;

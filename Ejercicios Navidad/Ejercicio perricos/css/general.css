@@ -582,7 +582,7 @@ label:has(+ textarea[required="true"]):after {
 
 /*Header*/
 
-header {
+.header__secundaryPages {
   display: flex;
   flex-direction: column;
   align-items: center;

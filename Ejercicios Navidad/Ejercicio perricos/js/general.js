@@ -1,11 +1,111 @@
 import "./auth_observer.js";
-import { getRandomDogImage, getListAllBreeds } from "./api.js";
-import { auth } from "./auth_observer.js";
 
 import { initSignOut } from "./signout.js";
-initSignOut()
+initSignOut();
 
 const dogsArray = [];
+const initialDogsData = [
+  {
+    name: "Luna",
+    age: "Adulto",
+    gender: "female",
+    breed: "labrador",
+    size: "Grande",
+    weight: "28 kg",
+
+    healthStatus: "healthy",
+    vaccinated: "yes",
+    dewormed: "yes",
+    sterilized: "yes",
+    specialNeeds: "",
+
+    temperament: "Sociable",
+    energyLevel: "Alto",
+    dogsCompatibility: "yes",
+    catsCompatibility: "unknown",
+    kidsCompatibility: "yes",
+    trainingLevel: "basic",
+
+    adoptionStatus: "available",
+    homeType: "any",
+    entryDate: "2026-01-10",
+    adoptionRequirements: "",
+
+    shortDescription: "Muy cariñosa y sociable.",
+    longDescription:
+      "Luna es una perra muy equilibrada, le encanta estar con personas y pasear.",
+
+    photos: [],
+    mainPhoto: null,
+  },
+  {
+    name: "Rocky",
+    age: "Senior",
+    gender: "male",
+    breed: "bulldog",
+    size: "Mediano",
+    weight: "24 kg",
+
+    healthStatus: "healthy",
+    vaccinated: "yes",
+    dewormed: "yes",
+    sterilized: "yes",
+    specialNeeds: "Articulaciones delicadas",
+
+    temperament: "Tranquilo",
+    energyLevel: "Bajo",
+    dogsCompatibility: "yes",
+    catsCompatibility: "unknown",
+    kidsCompatibility: "depends",
+    trainingLevel: "basic",
+
+    adoptionStatus: "available",
+    homeType: "apartment",
+    entryDate: "2025-12-01",
+    adoptionRequirements: "Paseos cortos y ambiente tranquilo",
+
+    shortDescription: "Perro tranquilo ideal para piso.",
+    longDescription:
+      "Rocky es un perro mayor muy bueno, perfecto para una familia calmada.",
+
+    photos: [],
+    mainPhoto: null,
+  },
+  {
+    name: "Nala",
+    age: "Cachorro",
+    gender: "female",
+    breed: "husky",
+    size: "Grande",
+    weight: "14 kg",
+
+    healthStatus: "healthy",
+    vaccinated: "in_progress",
+    dewormed: "yes",
+    sterilized: "no",
+    specialNeeds: "",
+
+    temperament: "Activo",
+    energyLevel: "Alto",
+    dogsCompatibility: "yes",
+    catsCompatibility: "no",
+    kidsCompatibility: "yes",
+    trainingLevel: "none",
+
+    adoptionStatus: "available",
+    homeType: "house",
+    entryDate: "2026-01-20",
+    adoptionRequirements: "Familia activa",
+
+    shortDescription: "Cachorra muy activa y juguetona.",
+    longDescription:
+      "Nala es una cachorra llena de energía, ideal para personas deportistas.",
+
+    photos: [],
+    mainPhoto: null,
+  },
+];
+
 let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";
 let filterSizeActive = "Todos los tamaños";
@@ -18,119 +118,41 @@ let DOGS_FAVOURITES_STORAGE_KEY = "";
 const heartFull = "../img/heart.svg";
 const heartEmpty = "../img/heart-outline.svg";
 
-//Definición de edad de los dogs
-
 const dogAge = ["Cachorro", "Adulto", "Senior"];
-
-function randomDogAge() {
-  const randomIndex = Math.floor(Math.random() * dogAge.length);
-  return dogAge[randomIndex];
-}
-
-//Definición de edad de los dogs
-
 const dogSize = ["Pequeño", "Mediano", "Grande"];
 
-function randomDogSize() {
-  const randomIndex = Math.floor(Math.random() * dogSize.length);
-  return dogSize[randomIndex];
+//Api
+
+async function getListAllBreeds() {
+  const url = "https://dog.ceo/api/breeds/list/all";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+
+    return json.message;
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
-// Definición de nombres de dogs
+async function getImageBreed(breed) {
+  if (!breed) return null;
 
-const dogName = [
-  "Sucky",
-  "Drako",
-  "Atenea",
-  "Harby",
-  "Lacy",
-  "Nico",
-  "Timy",
-  "Pitter",
-  "Frida",
-  "Rocky",
-  "Neu",
-  "Body",
-  "Chena",
-  "Ghost",
-  "Fiona",
-  "Balto",
-  "Canela",
-  "Chispa",
-  "Rocco",
-  "Sombra",
-  "Luna",
-  "Max",
-  "Thor",
-  "Kira",
-  "Bruno",
-  "Nala",
-  "Simba",
-  "Toby",
-  "Milo",
-  "Duna",
-  "Bimba",
-  "Coco",
-  "Zeus",
-  "Noa",
-  "Dana",
-  "Leo",
-  "Bobby",
-  "Arya",
-  "Hera",
-  "Odin",
-  "Maya",
-  "Teo",
-  "Kala",
-  "Rex",
-  "Olga",
-  "Paco",
-  "Nube",
-  "Ron",
-  "Greta",
-  "Koko",
-  "Vito",
-  "Linda",
-  "Bruce",
-  "Nina",
-  "Trufa",
-  "Pipa",
-  "Otto",
-  "Loki",
-  "Balu",
-  "Kiara",
-  "Hugo",
-  "Mora",
-  "Rock",
-  "Tina",
-  "Chico",
-  "Bowie",
-  "Sira",
-  "Bongo",
-  "Nero",
-  "India",
-  "Polo",
-  "Taco",
-  "Rita",
-  "Blue",
-  "Sunny",
-  "Shadow",
-  "Lucky",
-  "Mimi",
-  "Rayo",
-];
+  const url = `https://dog.ceo/api/breed/${breed}/images/random`;
 
-function randomDogName() {
-  const randomIndex = Math.floor(Math.random() * dogName.length);
-  return dogName[randomIndex];
-}
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Breed not found");
 
-// Dar una raza aleatoria
-
-export function randomDogBreed() {
-  breeds.unshift("Todas las razas");
-  const randomIndex = Math.floor(Math.random() * breeds.length);
-  return breeds[randomIndex];
+    const json = await response.json();
+    return json.message;
+  } catch (error) {
+    console.error("Error fetching breed image:", error.message);
+  }
 }
 
 //Buscador
@@ -279,120 +301,87 @@ function filterSize() {
 
 filterSize();
 
-// Añadir perritos al pulsar los botones
+//Añadir imagen si no tiene imagen 
+async function addImageToDog(dog) {
+  const provisionalPhoto = await getImageBreed(dog.breed);
 
-//Recibir la raza del perro a partir de la img
-
-function getBreedFromImageUrl(url) {
-  const parts = url.split("/");
-  const breedWithSub = parts[parts.indexOf("breeds") + 1];
-  const mainBreed = breedWithSub.split("-")[0];
-  return mainBreed;
+  return {
+    ...dog,
+    id: new Date().toISOString(),
+    provisionalPhoto,
+  };
 }
 
-// Añadir 1 perrito
+const initialDogs = await Promise.all(
+  initialDogsData.map((dog) => addImageToDog(dog))
+);
 
-const addDog = async () => {
-  let img =
-    filterBreedsActive === "Todas las razas"
-      ? await getRandomDogImage()
-      : await getImageBreedActive();
-  const breed = getBreedFromImageUrl(img);
-  const age =
-    filterAgesActive === "Todas las edades" ? randomDogAge() : filterAgesActive;
-  const name = randomDogName();
-  const size =
-    filterSizeActive === "Todos los tamaños"
-      ? randomDogSize()
-      : filterSizeActive;
-  let heart = heartEmpty;
+dogsArray.push(...initialDogs);
+renderDogArray()
 
-  const dog = {
-    name,
-    age,
-    size,
-    breed,
-    img,
-    isLiked: false,
-    heart,
+//Guardar perro a partir del formulario
+const btnSaveDog = document.querySelector('form[name="add-dog"]');
+
+btnSaveDog.addEventListener("submit", function (event) {
+  event.preventDefault();
+  addDog();
+});
+
+// Añadir perrito a partir de las respuestas del formulario
+
+async function addDog() {
+  const baseDog = {
+    name: document.querySelector("#name").value.trim(),
+    age: document.querySelector("#age").value.trim(),
+    gender: document.querySelector("#gender").value.trim(),
+    breed: document.querySelector("#breed").value.trim(),
+    size: document.querySelector("#size").value.trim(),
+    weight: document.querySelector("#weight").value.trim(),
+
+    healthStatus: document.querySelector("#healthStatus").value.trim(),
+    vaccinated: document.querySelector("#vaccinated").value.trim(),
+    dewormed: document.querySelector("#dewormed").value.trim(),
+    sterilized: document.querySelector("#sterilized").value.trim(),
+    specialNeeds: document.querySelector("#specialNeeds").value.trim(),
+
+    temperament: document.querySelector("#temperament").value.trim(),
+    energyLevel: document.querySelector("#energyLevel").value.trim(),
+    dogsCompatibility: document
+      .querySelector("#dogsCompatibility")
+      .value.trim(),
+    catsCompatibility: document
+      .querySelector("#catsCompatibility")
+      .value.trim(),
+    kidsCompatibility: document
+      .querySelector("#kidsCompatibility")
+      .value.trim(),
+    trainingLevel: document.querySelector("#trainingLevel").value.trim(),
+
+    adoptionStatus: document.querySelector("#adoptionStatus").value.trim(),
+    homeType: document.querySelector("#homeType").value.trim(),
+    entryDate: document.querySelector("#entryDate").value.trim(),
+    adoptionRequirements: document
+      .querySelector("#adoptionRequirements")
+      .value.trim(),
+
+    shortDescription: document
+      .querySelector("#shortDescription")
+      .value.trim(),
+    longDescription: document
+      .querySelector("#longDescription")
+      .value.trim(),
+
+    photos: document.querySelector("#photos").files,
+    mainPhoto: document.querySelector("#mainPhoto").files[0],
   };
 
-  dogsArray.push(dog);
+  const fullDog = await addImageToDog({
+    ...baseDog,
+  });
 
-  saveDogsStoratge();
-
+  dogsArray.push(fullDog);
   renderDogArray();
-};
-
-renderDogArray();
-
-document
-  .querySelector("#add-1-dog")
-  .addEventListener("click", async function () {
-    disabledAllButtons();
-    await addDog();
-    enableAllButtons();
-  });
-
-// Añadir 5 dogs
-
-async function add5Dog() {
-  await Promise.all([addDog(), addDog(), addDog(), addDog(), addDog()]);
-  console.log("end");
 }
-
-document
-  .querySelector("#add-5-dog")
-  .addEventListener("click", async function () {
-    disabledAllButtons();
-    await add5Dog();
-    enableAllButtons();
-  });
-
-//Desactivar botones de añadir perrito
-
-function disabledAllButtons() {
-  document.querySelectorAll(".buttons__add button").forEach(function (button) {
-    button.disabled = true;
-  });
-}
-
-//Activar botones de añadir perrito
-
-function enableAllButtons() {
-  document.querySelectorAll(".buttons__add button").forEach(function (button) {
-    button.disabled = false;
-  });
-}
-
-//Guardar en local storatge los perros
-
-function saveDogsStoratge() {
-  localStorage.setItem(DOGS_STORAGE_KEY, JSON.stringify(dogsArray));
-}
-
-//Guardar en local storatge los perros favoritos
-
-function saveDogsFavouritesStoratge() {
-  const favourites = dogsArray.filter(function (dog) {
-    return dog.isLiked === true;
-  });
-  localStorage.setItem(DOGS_FAVOURITES_STORAGE_KEY, JSON.stringify(favourites));
-}
-
-
-//Mostrar los perros añadidos a local storage
-
-function loadPreviousDogs() {
-  const previousDogs = localStorage.getItem(DOGS_STORAGE_KEY);
-  if (previousDogs) {
-    dogsArray.push(...JSON.parse(previousDogs));
-  }
-}
-
-loadPreviousDogs();
-renderDogArray();
-
 // Card del perrito en la interfaz
 
 function renderDogArray() {
@@ -420,10 +409,10 @@ function renderDogArray() {
       hasResults = true;
 
       const htmlAdd = `<div class="card">
-        <img class="card__img" src="${dog.img}" alt="Perro" />
+        <img class="card__img" src="${dog.provisionalPhoto}" alt="Perro" />
         <div class="card__infoprincipal"> 
           <h3>${dog.name}</h3>
-          <img data-like=${index} class="buttonheart icon20px" src="${dog.heart}" alt="heart icon"> 
+          <img data-like=${dog.id} class="buttonheart icon20px" src="" alt="heart icon"> 
         </div>
         <span>Raza: <span class="capitalize">${dog.breed}</span></span>
         <span>Edad: ${dog.age}</span>
@@ -431,51 +420,15 @@ function renderDogArray() {
       </div>`;
 
       dogList.innerHTML += htmlAdd;
+
+      console.log(dogsArray)
     }
   });
 
-  if (dogsArray.length == 0) {
-    addmessage.innerHTML = `<p>Aún no hay perritos por aquí. Pulsa “Añadir perro” y empieza a conocer a los perros de nuestro refugio.</p>`;
-  } else if (hasResults === false)
+  if (hasResults === false)
     addmessage.innerHTML = `<p>No hemos encontrado ningún perro con estos filtros. Cambia los filtros o añade más perros para seguir explorando.</p>`;
 
   badge();
-  likeDog();
+  
 }
 
-//Darle un like al dog
-
-function likeDog() {
-  const likeButton = document.querySelectorAll(".buttonheart");
-  const messageLogin = document.querySelector(".message__login");
-
-  likeButton.forEach(function (button) {
-    button.addEventListener("click", function () {
-      const idButtonClicked = Number(button.getAttribute("data-like"));
-      const dog = dogsArray[idButtonClicked];
-
-      if (!auth.currentUser) {
-        messageLogin.hidden = false;
-      } else {
-        DOGS_FAVOURITES_STORAGE_KEY = `Perros favoritos -- ${auth.currentUser.uid}:`;
-        messageLogin.hidden = true;
-        function dogaddlike(dog) {
-          if (dog.isLiked === false) {
-            dog.isLiked = true;
-            dog.heart = heartFull;
-
-            saveDogsStoratge();
-            saveDogsFavouritesStoratge();
-          } else {
-            dog.isLiked = false;
-            dog.heart = heartEmpty;
-            saveDogsStoratge();
-            saveDogsFavouritesStoratge();
-          }
-        }
-        dogaddlike(dog);
-        renderDogArray();
-      }
-    });
-  });
-}

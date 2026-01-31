@@ -12,3 +12,14 @@ form[name="login"] ,form[name="signUp"]{
   font-size: 14px;
   color: var(--red-soft);
 }
+
+.goSignUp, .goSignIn{
+  font-size: 14px;
+  color: var(--gray-dark);
+}
+
+.btn_goSignUp, .btn_goSignIn{
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--green);
+}

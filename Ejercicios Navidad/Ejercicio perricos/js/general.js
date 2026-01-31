@@ -2,6 +2,9 @@ import "./auth_observer.js";
 import { getRandomDogImage, getListAllBreeds } from "./api.js";
 import { auth } from "./auth_observer.js";
 
+import { initSignOut } from "./signout.js";
+initSignOut()
+
 const dogsArray = [];
 let filterBreedsActive = "Todas las razas";
 let filterAgesActive = "Todas las edades";

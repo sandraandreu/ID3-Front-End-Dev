@@ -27,6 +27,8 @@ export const auth = getAuth(app);
 
 const accountText = document.querySelector(".account__text");
 const currentUser = document.querySelector(".current__user");
+const signOutIcon = document.querySelector(".signout__icon");
+
 
 // --- Auth State Observer ---
 // This listens for changes in the user's sign-in state
@@ -34,11 +36,13 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
     currentUser.style.display = "block";
+    signOutIcon.style.display = "block"
     accountText.style.display = "none";
     currentUser.innerHTML = `<span id="current__user">Hola, ${user.displayName}</span>`;
   } else {
     // User is signed out
     currentUser.style.display = "none";
+    signOutIcon.style.display = "none"
     accountText.style.display = "block";
   }
 });

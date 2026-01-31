@@ -5,8 +5,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
   updateProfile,
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,7 +30,6 @@ const auth = getAuth(app);
 
 const signIn = document.querySelector('form[name="login"]');
 const signUp = document.querySelector('form[name="signUp"]');
-const signOutIcon = document.querySelector(".signout__icon");
 const goSignInBtn = document.querySelector(".btn_goSignIn");
 const goSignUpBtn = document.querySelector(".btn_goSignUp");
 const messagePassSignIn = document.querySelector(".message__form.passSignIn");
@@ -78,16 +75,6 @@ signIn.addEventListener("submit", async (event) => {
   } catch (error) {
     messageErrorSignIn.hidden = false;
     console.error("Email sign in error:", error.message);
-  }
-});
-
-// Sign Out
-signOutIcon.addEventListener("click", async () => {
-  try {
-    await signOut(auth);
-    console.log("User signed out");
-  } catch (error) {
-    console.error("Sign out error:", error.message);
   }
 });
 

@@ -108,10 +108,12 @@ h1 {
 
 .menu__icon,
 .toggle,
-.icon__close,
-.icon__signout,
-.currentUser {
+.icon__close {
   display: none;
+}
+
+.signout__icon{
+  cursor: pointer;
 }
 
 .menu {

@@ -1,6 +1,10 @@
 //Mostrar en la interfaz los perros guardados en favoritos
 import "./general.js";
 
+import { initSignOut } from "./signout.js";
+initSignOut()
+
+
 loadPreviousDogs();
 
 function renderFavouriteDogArray() {

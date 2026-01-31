@@ -1,31 +1,5 @@
 /*Buttons y filtros*/
 
-.button__add {
-  cursor: pointer;
-  display: inline-flex;
-  padding: 12px 24px;
-
-  font-size: 16px;
-  font-weight: normal;
-  color: var(--white-warm);
-
-  background-color: var(--green);
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 2px 4px var(--green-06);
-}
-
-@media (width<400px) {
-  .button__add {
-    padding: 10px 16px;
-  }
-}
-
-.button__add:hover {
-  background-color: var(--green-soft);
-}
-
-.button__add:active,
 .filter__toggle:active,
 .clean__filters:active {
   transform: scale(1) translateY(1px);
@@ -140,10 +114,9 @@ button:disabled {
 
 /*Buscador*/
 
-/*Buscador*/
-
 .search {
   flex: 1;
+  min-width: 300px;
   max-width: 700px;
   display: flex;
   align-items: center;
@@ -160,7 +133,6 @@ button:disabled {
 
 @media (width<768px) {
   .search {
-    min-width: 0;
     max-width: none;
     width: 100%;
   }

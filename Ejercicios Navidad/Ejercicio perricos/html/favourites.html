@@ -6,16 +6,16 @@
     <script src=""></script>
     <title>Perros en adopción - Contacto</title>
     <link rel="stylesheet" href="../css/general.css" />
-    <link rel="stylesheet" href="../css/favourites.css" />
   </head>
   <body>
     <div class="topbar">
-      <div class="logo"><span>logo en proceso</span><img src="" alt="" /></div>
-      <div class="menu">
+      <div class="logo"><span>logo</span><img src="" alt="" /></div>
+      <div class="topbar__content">
         <label class="menu__icon" for="f-toggle"
           ><img class="icon24px" src="../img/menu.svg" alt=""
         /></label>
         <input type="checkbox" id="f-toggle" class="toggle" />
+
         <div class="nav">
           <div class="icon__close">
             <label for="f-toggle"
@@ -23,31 +23,48 @@
             /></label>
           </div>
           <ul class="nav__list">
-            <li><a class="nav__item" href="dogs.html">Nuestros perros</a></li>
+            <li>
+              <a class="nav__item" href="dogs.html"
+                >Nuestros perros</a
+              >
+            </li>
             <li>
               <a class="nav__item" href="contact.html">Contacto</a>
             </li>
             <li>
-              <a class="nav__item page__active" href="favourites.html"
-                >Tus favoritos</a
-              >
+              <a class="nav__item page__active" href="favourites.html">Tus favoritos</a>
             </li>
           </ul>
         </div>
-        <div class="account">
-          <div class="current__user"></div>
-          <a class="account__text" href="login.html">Iniciar sesión</a>
-          <div class="account__icon">
-            <a href="login.html"
-              ><img
+
+        <div class="topbar__user-actions">
+          <div class="account">
+            <div class="current__user"></div>
+            <a class="account__text" href="login.html">Iniciar sesión</a>
+            <div class="account__icon">
+              <a href="login.html"
+                ><img
+                  class="icon24px"
+                  src="../img/account-circle.svg"
+                  alt="account icon"
+              /></a>
+            </div>
+
+            <div class="signout__icon">
+              <img
                 class="icon24px"
-                src="../img/account-circle.svg"
-                alt="account icon"
-            /></a>
+                src="../img/logout.svg"
+                alt="sign out icon"
+              />
+            </div>
           </div>
-          <div class="signout__icon">
-            <img class="icon24px" src="../img/logout.svg" alt="sign out icon" />
-          </div>
+
+          <a class="addDog" href="../html/add-dog.html"
+            ><button class="addDog__btn">Añadir un perro</button></a
+          >
+          <a class="add__icon" href="../html/add-dog.html"
+            ><img class="icon24px" src="../img/plus-circle.svg" alt="add icon"
+          /></a>
         </div>
       </div>
     </div>

@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src=""></script>
+    <title>Perros en adopción - Añadir perro</title>
+    <link rel="stylesheet" href="../css/general.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="logo"><span>logo</span><img src="" alt="" /></div>
+      <div class="topbar__content">
+        <label class="menu__icon" for="f-toggle"
+          ><img class="icon24px" src="../img/menu.svg" alt=""
+        /></label>
+        <input type="checkbox" id="f-toggle" class="toggle" />
+
+        <div class="nav">
+          <div class="icon__close">
+            <label for="f-toggle"
+              ><img class="icon24px" src="../img/window-close.svg" alt=""
+            /></label>
+          </div>
+          <ul class="nav__list">
+            <li>
+              <a class="nav__item" href="dogs.html">Nuestros perros</a>
+            </li>
+            <li>
+              <a class="nav__item" href="contact.html">Contacto</a>
+            </li>
+            <li>
+              <a class="nav__item" href="favourites.html">Tus favoritos</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="topbar__user-actions">
+          <div class="account">
+            <div class="current__user"></div>
+            <a class="account__text" href="login.html">Iniciar sesión</a>
+            <div class="account__icon">
+              <a href="login.html"
+                ><img
+                  class="icon24px"
+                  src="../img/account-circle.svg"
+                  alt="account icon"
+              /></a>
+            </div>
+
+            <div class="signout__icon">
+              <img
+                class="icon24px"
+                src="../img/logout.svg"
+                alt="sign out icon"
+              />
+            </div>
+          </div>
+
+          <a class="addDog" href="../html/add-dog.html"
+            ><button class="addDog__btn">Añadir un perro</button></a
+          >
+          <a class="add__icon" href="../html/add-dog.html"
+            ><img class="icon24px" src="../img/plus-circle.svg" alt="add icon"
+          /></a>
+        </div>
+      </div>
+    </div>
+    <main class="contact__page">
+      <header>
+        <div class="header__titleAndSubtitle">
+          <h1>Añadir un nuevo perro al refugio</h1>
+          <p class="header__intro">
+            Cada nuevo perro merece una presentación cuidada. Desde esta página
+            puedes añadir a los nuevos miembros del refugio, compartir su
+            historia, características y todo aquello que ayude a encontrarles un
+            hogar. Tómate un momento para completar la información con calma:
+            cada detalle cuenta.
+          </p>
+        </div>
+      </header>
+
+      <form class="form" name="add-dog" method="post">
+        <div class="form__content">
+          <fieldset>
+            <legend>Información básica</legend>
+
+            <div class="form__item">
+              <label for="name">Nombre</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required="true"
+                placeholder="Sucky"
+              />
+            </div>
+
+            <select name="age" id="age" required="true">
+              <option value="" disabled selected>Edad</option>
+              <option value="puppy">Cachorro</option>
+              <option value="adult">Adulto</option>
+              <option value="senior">Senior</option>
+            </select>
+
+            <select name="gender" id="gender" required="true">
+              <option value="" disabled selected>Sexo</option>
+              <option value="male">Macho</option>
+              <option value="female">Hembra</option>
+            </select>
+
+            <select name="breed" id="breed" required="true">
+              <option value="" disabled selected>Raza</option>
+            </select>
+
+            <select name="size" id="size" required="true">
+              <option value="" disabled selected>Tamaño</option>
+              <option value="small">Pequeño</option>
+              <option value="medium">Mediano</option>
+              <option value="large">Grande</option>
+            </select>
+
+            <div class="form__item">
+              <label for="weight">Peso aproximado</label>
+              <input
+                type="text"
+                id="weight"
+                name="weight"
+                required="true"
+                placeholder="17.5 kg"
+              />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Salud</legend>
+
+            <select name="healthStatus" id="healthStatus" required="true">
+              <option value="" disabled selected>Estado de salud</option>
+              <option value="healthy">Sano</option>
+              <option value="under_treatment">En tratamiento</option>
+              <option value="needs_attention">Requiere atención</option>
+            </select>
+
+            <select name="vaccinated" id="vaccinated" required="true">
+              <option value="" disabled selected>Vacunado</option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+              <option value="in_progress">En proceso</option>
+            </select>
+
+            <select name="dewormed" id="dewormed" required="true">
+              <option value="" disabled selected>Desparasitado</option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+            </select>
+
+            <select name="sterilized" id="sterilized" required="true">
+              <option value="" disabled selected>Esterilizado</option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+            </select>
+
+            <div class="form__item">
+              <label for="specialNeeds">Necesidades especiales</label>
+              <textarea
+                type="text"
+                id="specialNeeds"
+                name="specialNeeds"
+                rows="4"
+                placeholder="Alergias, medicación, cuidados especiales..."
+              ></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Carácter y comportamiento</legend>
+
+            <select name="temperament" id="temperament" required="true">
+              <option value="" disabled selected>Carácter</option>
+              <option value="calm">Tranquilo</option>
+              <option value="active">Activo</option>
+              <option value="playful">Juguetón</option>
+              <option value="shy">Tímido</option>
+              <option value="sociable">Sociable</option>
+            </select>
+
+            <select name="energyLevel" id="energyLevel" required="true">
+              <option value="" disabled selected>Nivel de energía</option>
+              <option value="low">Bajo</option>
+              <option value="medium">Medio</option>
+              <option value="high">Alto</option>
+            </select>
+
+            <select
+              name="dogsCompatibility"
+              id="dogsCompatibility"
+              required="true"
+            >
+              <option value="" disabled selected>
+                Compatible con otros perros
+              </option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+              <option value="depends">Depende</option>
+            </select>
+
+            <select name="catsCompatibility" id="catsCompatibility">
+              <option value="" disabled selected>Compatible con gatos</option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+              <option value="unknown">Desconocido</option>
+            </select>
+
+            <select name="kidsCompatibility" id="kidsCompatibility">
+              <option value="" disabled selected>Compatible con niños</option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+              <option value="depends">Depende</option>
+            </select>
+
+            <select name="trainingLevel" id="trainingLevel">
+              <option value="" disabled selected>Nivel de entrenamiento</option>
+              <option value="none">Ninguno</option>
+              <option value="basic">Básico</option>
+              <option value="advanced">Avanzado</option>
+            </select>
+          </fieldset>
+
+          <fieldset>
+            <legend>Situación de adopción</legend>
+
+            <select name="adoptionStatus" id="adoptionStatus" required="true">
+              <option value="" disabled selected>Estado de adopción</option>
+              <option value="available">Disponible</option>
+              <option value="reserved">Reservado</option>
+              <option value="adopted">Adoptado</option>
+            </select>
+
+            <select name="homeType" id="homeType" required="true">
+              <option value="" disabled selected>
+                Tipo de hogar recomendado
+              </option>
+              <option value="apartment">Piso</option>
+              <option value="house">Casa con jardín</option>
+              <option value="any">Indistinto</option>
+            </select>
+
+            <div class="form__item">
+              <label for="entryDate">Fecha de ingreso</label>
+              <input
+                type="date"
+                id="entryDate"
+                name="entryDate"
+                required="true"
+              />
+            </div>
+
+            <div class="form__item">
+              <label for="adoptionRequirements"
+                >Requisitos especiales de adopción</label
+              >
+              <textarea
+                type="text"
+                id="adoptionRequirements"
+                name="adoptionRequirements"
+                rows="4"
+                placeholder="Experiencia previa, entorno tranquilo, etc."
+              ></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Fotos</legend>
+
+            <div class="form__item">
+              <label for="photos">Fotos del perro</label>
+              <input
+                type="file"
+                id="photos"
+                name="photos"
+                accept="image/*"
+                multiple
+              />
+            </div>
+
+            <div class="form__item">
+              <label for="mainPhoto">Foto principal</label>
+              <input
+                type="file"
+                id="mainPhoto"
+                name="mainPhoto"
+                accept="image/*"
+                required="true"
+              />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Descripciones</legend>
+
+            <div class="form__item">
+              <label for="shortDescription">Descripción corta</label>
+              <textarea
+                type="text"
+                id="shortDescription"
+                name="shortDescription"
+                rows="4"
+                required="true"
+                placeholder="Perro cariñoso y sociable, ideal para familias."
+              ></textarea>
+            </div>
+
+            <div class="form__item">
+              <label for="longDescription">Descripción completa</label>
+              <textarea
+                id="longDescription"
+                name="longDescription"
+                rows="8"
+                required="true"
+                placeholder="Cuenta su historia, carácter, cómo llegó al refugio, etc."
+              ></textarea>
+            </div>
+          </fieldset>
+        </div>
+
+        <button class="cta saveDog">Guardar y publicar</button>
+      </form>
+
+      <div class="message__form" hidden>
+        <div class="message__text">
+          <p><strong>¡Mensaje enviado con éxito!</strong></p>
+          <p>
+            Gracias por ponerte en contacto con nosotros. Hemos recibido tu
+            mensaje y el refugio se pondrá en contacto contigo pronto.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script type="module" src="../js/contact.js"></script>
+</html>

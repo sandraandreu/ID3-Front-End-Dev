@@ -111,7 +111,6 @@
 
             <select name="breed" id="breed" required="true">
               <option value="" disabled selected>Raza</option>
-              <option value="sassa">asass</option>
             </select>
 
             <select name="size" id="size" required="true">
@@ -272,31 +271,6 @@
           </fieldset>
 
           <fieldset>
-            <legend>Fotos</legend>
-
-            <div class="form__item">
-              <label for="photos">Fotos del perro</label>
-              <input
-                type="file"
-                id="photos"
-                name="photos"
-                accept="image/*"
-                multiple
-              />
-            </div>
-
-            <div class="form__item">
-              <label for="mainPhoto">Foto principal</label>
-              <input
-                type="file"
-                id="mainPhoto"
-                name="mainPhoto"
-                accept="image/*"
-              />
-            </div>
-          </fieldset>
-
-          <fieldset>
             <legend>Descripciones</legend>
 
             <div class="form__item">
@@ -327,12 +301,11 @@
         <button class="cta saveDog">Guardar y publicar</button>
       </form>
 
-      <div class="message__form" hidden>
+      <div class="message__form add-dog__pass" hidden>
         <div class="message__text">
-          <p><strong>¡Mensaje enviado con éxito!</strong></p>
+          <p><strong>¡Perro añadido con éxito!</strong></p>
           <p>
-            Gracias por ponerte en contacto con nosotros. Hemos recibido tu
-            mensaje y el refugio se pondrá en contacto contigo pronto.
+            El nuevo perro ya está disponible en la lista de adopción.
           </p>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { dogsArray } from "./state.js";
 import { getImageBreed, getListAllBreeds } from "./api.js";
-import { renderDogArray } from "./render.js";
 import { saveDogsStorage} from "./local-storage.js";
 
 const form = document.querySelector('form[name="add-dog"]');
@@ -65,9 +64,11 @@ async function addDogFromForm() {
     provisionalPhoto,
   };
 
-  messagePassAddDog.hidden = false;
+  if (messagePassAddDog) {
+    messagePassAddDog.hidden = false;
+  }
+
   dogsArray.push(fullDog);
-  renderDogArray();
   saveDogsStorage()
 
   form.reset();

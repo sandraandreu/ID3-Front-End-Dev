@@ -33,16 +33,18 @@ export function renderDogArray() {
     if (passBreed && passAge && passSize && passSearch) {
       hasResults = true;
 
-      const htmlAdd = `<div class="card">
-        <img class="card__img" src="${dog.provisionalPhoto}" alt="Perro" />
-        <div class="card__infoprincipal"> 
-          <h3>${dog.name}</h3>
-          <img data-like=${dog.id} class="buttonheart icon20px" src="" alt="heart icon"> 
-        </div>
-        <span>Raza: <span class="capitalize">${dog.breed}</span></span>
-        <span>Edad: ${dog.age}</span>
-        <span>Tamaño: ${dog.size}</span>
-      </div>`;
+      const htmlAdd = `<div class="col col-sm-6 col-md-4 col-lg-2">
+    <div class="card">
+      <img class="card__img" src="${dog.provisionalPhoto}" alt="Perro" />
+      <div class="card__infoprincipal"> 
+        <h3>${dog.name}</h3>
+        <img data-like="${dog.id}" class="buttonheart icon20px" src="" alt="heart icon"> 
+      </div>
+      <span>Raza: <span class="capitalize">${dog.breed}</span></span>
+      <span>Edad: ${dog.age}</span>
+      <span>Tamaño: ${dog.size}</span>
+    </div>
+  </div>`;
 
       dogList.innerHTML += htmlAdd;
 
